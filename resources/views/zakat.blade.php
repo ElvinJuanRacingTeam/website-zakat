@@ -160,11 +160,7 @@ border-color:#16a34a;
 <form method="POST" action="{{ route('simpan') }}">
 @csrf
 
-<input type="hidden" name="metode_pembayaran" id="metodePembayaranHidden" value="cash">
-
 <div class="row g-5">
-
-<!-- KIRI -->
 
 <div class="col-md-6">
 
@@ -204,8 +200,6 @@ border-color:#16a34a;
 </div>
 
 </div>
-
-<!-- KANAN -->
 
 <div class="col-md-6">
 
@@ -280,12 +274,12 @@ Total Bayar : Rp <span id="totalBayar">0</span>
 <div class="d-flex gap-3">
 
 <label>
-<input type="radio" name="metodeRadio" value="cash" checked onchange="setMetode(this)">
+<input type="radio" name="metode_pembayaran" value="cash" checked>
 Cash
 </label>
 
 <label>
-<input type="radio" name="metodeRadio" value="transfer" onchange="setMetode(this)">
+<input type="radio" name="metode_pembayaran" value="transfer">
 Transfer
 </label>
 
@@ -312,10 +306,6 @@ Transfer
 
 const harga = 40000;
 const kg = 2.5;
-
-function setMetode(el){
-document.getElementById("metodePembayaranHidden").value = el.value;
-}
 
 function pilihJiwa(n){
 
