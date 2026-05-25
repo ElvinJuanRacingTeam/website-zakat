@@ -15,8 +15,6 @@
 
     @include('Pages.Navbar')
 
-
-
     <div class="container py-5">
 
         <div class="page-card">
@@ -33,90 +31,123 @@
                 $totalTransfer = $data->where('metode_pembayaran', 'transfer')->sum('total');
             @endphp
 
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-            <h3 class="fw-bold mb-4">
-                Dashboard Laporan Zakat
-            </h3>
-            <form method="GET" class="mb-4">
+    <div>
+        <h2 class="dashboard-title mb-1">
+            Dashboard Laporan Zakat
+        </h2>
 
-                <div class="row g-3">
+        <p class="dashboard-subtitle mb-0">
+            Monitoring zakat, infaq, fidya dan transaksi pembayaran
+        </p>
+    </div>
 
-                    <!-- Tahun -->
-                    <div class="col-md-3">
+    <div class="dashboard-date">
+        {{ now()->timezone('Asia/Jakarta')->format('d F Y') }}
+    </div>
 
-                        <select name="tahun" class="form-select">
-
-                            <option value="">Semua Tahun</option>
-
-                            @foreach ($tahunList as $th)
-                                <option value="{{ $th }}" {{ $tahun == $th ? 'selected' : '' }}>
-                                    {{ $th }}
-                                </option>
-                            @endforeach
-
-                        </select>
-
-                    </div>
+</div>
 
 
-                    <!-- Metode -->
-                    <div class="col-md-3">
+<form method="GET" class="filter-card mb-5">
 
-                        <select name="metode" class="form-select">
+    <div class="row g-3 align-items-end">
 
-                            <option value="">Semua Metode</option>
+        <!-- Tahun -->
+        <div class="col-lg-3 col-md-6">
 
-                            <option value="cash" {{ $metode == 'cash' ? 'selected' : '' }}>
-                                Cash
-                            </option>
+            <label class="filter-label">
+                Tahun
+            </label>
 
-                            <option value="transfer" {{ $metode == 'transfer' ? 'selected' : '' }}>
-                                Transfer
-                            </option>
+            <select name="tahun" class="form-select">
 
-                        </select>
+                <option value="">Semua Tahun</option>
 
-                    </div>
+                @foreach ($tahunList as $th)
+                    <option value="{{ $th }}" {{ $tahun == $th ? 'selected' : '' }}>
+                        {{ $th }}
+                    </option>
+                @endforeach
 
+            </select>
 
-                    <!-- Tanggal -->
-                    <div class="col-md-3">
+        </div>
 
-                        <input type="date" name="tanggal" value="{{ $tanggal }}" class="form-control">
+        <!-- Metode -->
+        <div class="col-lg-3 col-md-6">
 
-                    </div>
+            <label class="filter-label">
+                Metode Pembayaran
+            </label>
 
+            <select name="metode" class="form-select">
 
-                    <!-- Sorting -->
-                    <div class="col-md-2">
+                <option value="">Semua Metode</option>
 
-                        <select name="sort" class="form-select">
+                <option value="cash" {{ $metode == 'cash' ? 'selected' : '' }}>
+                    Cash
+                </option>
 
-                            <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>
-                                Terbaru
-                            </option>
+                <option value="transfer" {{ $metode == 'transfer' ? 'selected' : '' }}>
+                    Transfer
+                </option>
 
-                            <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>
-                                Terlama
-                            </option>
+            </select>
 
-                        </select>
+        </div>
 
-                    </div>
+        <!-- Tanggal -->
+        <div class="col-lg-3 col-md-6">
 
+            <label class="filter-label">
+                Tanggal
+            </label>
 
-                    <!-- Tombol -->
-                    <div class="col-md-1">
+            <input type="date"
+                   name="tanggal"
+                   value="{{ $tanggal }}"
+                   class="form-control">
 
-                        <button type="submit" class="btn btn-success w-100">
-                            Filter
-                        </button>
+        </div>
 
-                    </div>s
+        <!-- Sorting -->
+        <div class="col-lg-2 col-md-4">
 
-                </div>
+            <label class="filter-label">
+                Sorting
+            </label>
 
-            </form>
+            <select name="sort" class="form-select">
+
+                <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>
+                    Terbaru
+                </option>
+
+                <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>
+                    Terlama
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Tombol -->
+        <div class="col-lg-1 col-md-2">
+
+            <button type="submit"
+                    class="btn filter-btn w-100">
+
+                Filter
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
             <div class="summary-grid mb-4">
 
                 <div class="summary-card">
@@ -168,11 +199,11 @@
             </div>
 
 
-            <div class="table-responsive table-modern mb-4">
+            <div class="table-wrapper mb-4">
 
-                <table class="table table-bordered">
+                <table class="table-modern">
 
-                    <thead class="table-light">
+                    <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
@@ -193,32 +224,56 @@
                             <tr>
 
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->nama }}</td>
+
+                                <td>
+                                    <div class="fw-semibold">
+                                        {{ $item->nama }}
+                                    </div>
+                                </td>
+
                                 <td>{{ $item->alamat }}</td>
 
                                 <td>
                                     @if ($item->zakat_fitrah_kg > 0)
-                                        {{ number_format($item->zakat_fitrah_kg, 2) }} Kg
+                                        <span class="text-success fw-semibold">
+                                            {{ number_format($item->zakat_fitrah_kg, 2) }} Kg
+                                        </span>
                                     @else
                                         Rp {{ number_format($item->zakat_fitrah_rp, 0, ',', '.') }}
                                     @endif
                                 </td>
 
-                                <td>{{ number_format($item->zakat_mal, 0, ',', '.') }}</td>
-                                <td>{{ number_format($item->infaq_shodaqoh, 0, ',', '.') }}</td>
-                                <td>{{ number_format($item->fidya, 0, ',', '.') }}</td>
+                                <td>
+                                    Rp {{ number_format($item->zakat_mal, 0, ',', '.') }}
+                                </td>
 
-                                <td><strong>{{ number_format($item->total, 0, ',', '.') }}</strong></td>
+                                <td>
+                                    Rp {{ number_format($item->infaq_shodaqoh, 0, ',', '.') }}
+                                </td>
+
+                                <td>
+                                    Rp {{ number_format($item->fidya, 0, ',', '.') }}
+                                </td>
+
+                                <td class="total-text">
+                                    Rp {{ number_format($item->total, 0, ',', '.') }}
+                                </td>
 
                                 <td>
                                     @if ($item->metode_pembayaran == 'transfer')
-                                        <span class="badge bg-primary">Transfer</span>
+                                        <span class="badge-transfer">
+                                            Transfer
+                                        </span>
                                     @else
-                                        <span class="badge bg-warning text-dark">Cash</span>
+                                        <span class="badge-cash">
+                                            Cash
+                                        </span>
                                     @endif
                                 </td>
 
-                                <td>{{ $item->created_at->format('d M Y') }}</td>
+                                <td>
+                                    {{ $item->created_at->format('d M Y') }}
+                                </td>
 
                             </tr>
                         @endforeach
@@ -228,7 +283,6 @@
                 </table>
 
             </div>
-
 
             <div class="text-end">
                 <button onclick="window.print()" class="btn btn-success btn-print">
