@@ -1,50 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
 
-<head>
-    <meta charset="UTF-8">
-    <title>ZakatHub</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    @vite('resources/css/zakat.css')
-</head>
-
-<body>
-
-    @include('Pages.navbar')
-
-    <div class="container py-5">
-        <div class="form-card">
-
-            <h3 class="fw-bold mb-2">Formulir Pembayaran Zakat</h3>
-            <p class="text-muted mb-4">Silakan isi data muzakki dan jumlah jiwa yang dizakatkan.</p>
-
-            <form method="POST" action="{{ route('simpan') }}">
-                @csrf
-
-                @include('Layouts.input')
-
-                @include('Layouts.RincianPembayaran')
-        </div>
-    </div>
-
-    <div class="mt-5 text-end">
-        <button type="submit" class="btn-green">
-            ✔ Simpan & Cetak Kuitansi
-        </button>
-    </div>
-
-    </form>
-
-    </div>
-    </div>
-
-    <script>
         const harga = 40000;
         const kg = 2.5;
 
-        window.pilihJiwa = function(n) {
+        function pilihJiwa(n) {
 
             document.querySelectorAll(".jiwa-box").forEach(b => {
                 b.classList.remove("active");
@@ -68,7 +26,7 @@
 
         function hitungTotal() {
 
-            let jiwa = parseInt(document.getElementById("jumlahJiwa").value) || 0;
+            let jiwa = parseInt(document.getElementById("jumlahJiwa").value);
 
             let metode = document.querySelector('input[name="metode_fitrah"]:checked').value;
 
@@ -112,8 +70,3 @@
             });
 
         });
-    </script>
-
-</body>
-
-</html>
