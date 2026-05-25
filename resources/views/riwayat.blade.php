@@ -23,7 +23,6 @@
                 Riwayat Transaksi
             </h3>
 
-
             <div class="summary-card">
 
                 <div>
@@ -36,12 +35,31 @@
 
             </div>
 
-
             <div class="row mb-4">
 
                 <div class="col-md-4">
 
                     <input type="text" id="searchInput" class="form-control search-box" placeholder="Cari nama...">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <form method="GET">
+
+                        <select name="tahun" class="form-select" onchange="this.form.submit()">
+
+                            <option value="">Semua Tahun</option>
+
+                            @foreach ($tahunList as $th)
+                                <option value="{{ $th }}" {{ $tahun == $th ? 'selected' : '' }}>
+                                    {{ $th }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                    </form>
 
                 </div>
 
@@ -121,11 +139,13 @@
 
                                     <div class="action-buttons">
 
-                                        <a href="{{ route('cetak', $item->id) }}" class="btn btn-sm btn-outline-success">
+                                        <a href="{{ route('cetak', $item->id) }}"
+                                            class="btn btn-sm btn-outline-success">
                                             Cetak
                                         </a>
 
-                                        <a href="{{ route('edit', $item->id) }}" class="btn btn-sm btn-outline-primary">
+                                        <a href="{{ route('edit', $item->id) }}"
+                                            class="btn btn-sm btn-outline-primary">
                                             Edit
                                         </a>
 

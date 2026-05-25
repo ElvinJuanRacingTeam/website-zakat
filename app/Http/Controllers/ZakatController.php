@@ -76,20 +76,69 @@ class ZakatController extends Controller
     }
 
 
-    public function riwayat()
-    {
-        $data = Pembayaran::latest()->get();
-        return view('riwayat', compact('data'));
+public function riwayat(Request $request)
+{
+    $tahun = $request->tahun;
+
+    $query = Pembayaran::query();
+
+    if ($tahun) {
+        $query->whereYear('created_at', $tahun);
     }
 
+    $data = $query->latest()->get();
 
-    public function laporan()
-    {
-        $data = Pembayaran::all();
-        return view('laporan', compact('data'));
+    $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
+        ->distinct()
+        ->orderBy('tahun', 'desc')
+        ->pluck('tahun');
+
+    return view('riwayat', compact('data', 'tahunList', 'tahun'));
+}
+
+public function laporan(Request $request)
+{
+    $tahun = $request->tahun;
+    $metode = $request->metode;
+    $tanggal = $request->tanggal;
+    $sort = $request->sort ?? 'desc';
+
+    $query = Pembayaran::query();
+
+    // Filter Tahun
+    if ($tahun) {
+        $query->whereYear('created_at', $tahun);
     }
 
+    // Filter Metode
+    if ($metode) {
+        $query->where('metode_pembayaran', $metode);
+    }
 
+    // Filter Tanggal
+    if ($tanggal) {
+        $query->whereDate('created_at', $tanggal);
+    }
+
+    // Sorting
+    $query->orderBy('created_at', $sort);
+
+    $data = $query->get();
+
+    $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
+        ->distinct()
+        ->orderBy('tahun', 'desc')
+        ->pluck('tahun');
+
+    return view('laporan', compact(
+        'data',
+        'tahunList',
+        'tahun',
+        'metode',
+        'tanggal',
+        'sort'
+    ));
+}
     public function edit($id)
     {
         $data = Pembayaran::findOrFail($id);

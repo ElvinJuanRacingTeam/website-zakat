@@ -172,3 +172,106 @@ margin:12mm;
 }
 
 }
+/* ===== TABLE MODERN ===== */
+.table-modern {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.table-modern table {
+  margin-bottom: 0;
+}
+
+/* Header */
+.table-modern thead tr {
+  background: linear-gradient(135deg, #166534 0%, #16a34a 100%);
+}
+
+.table-modern thead th {
+  color: white !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 14px 16px;
+  border: none !important;
+  white-space: nowrap;
+}
+
+/* Body rows */
+.table-modern tbody tr {
+  transition: background 0.15s;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table-modern tbody tr:hover {
+  background-color: #f0fdf4;
+}
+
+.table-modern tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table-modern tbody td {
+  padding: 13px 16px;
+  font-size: 13.5px;
+  vertical-align: middle;
+  border: none !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+  color: #374151;
+}
+
+/* Kolom No */
+.table-modern tbody td:first-child {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+  width: 48px;
+}
+
+/* Kolom Nama */
+.table-modern tbody td:nth-child(2) {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Kolom Alamat */
+.table-modern tbody td:nth-child(3) {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Angka nol — redup */
+.table-modern tbody td .zero-val {
+  color: #d1d5db;
+  font-size: 13px;
+}
+
+/* Kolom Total */
+.table-modern tbody td:nth-child(8) {
+  font-weight: 700;
+  color: #15803d;
+  font-size: 14px;
+}
+
+/* Badge Metode */
+.badge {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.3px;
+}
+
+.badge.bg-warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fcd34d;
+}
+
+.badge.bg-primary {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd;
+}
