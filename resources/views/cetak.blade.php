@@ -5,6 +5,7 @@
 <title>Kuitansi Zakat</title>
 
 @vite('resources/css/cetak.css')
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 </head>
 
 <body>
