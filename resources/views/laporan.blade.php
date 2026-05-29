@@ -8,6 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/laporan.css') }}">
+    <link rel="icon" type="image/png" href="/logo.png">
     @vite('resources/css/laporan.css')
 </head>
 
@@ -31,123 +32,119 @@
                 $totalTransfer = $data->where('metode_pembayaran', 'transfer')->sum('total');
             @endphp
 
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
-    <div>
-        <h2 class="dashboard-title mb-1">
-            Dashboard Laporan Zakat
-        </h2>
+                <div>
+                    <h2 class="dashboard-title mb-1">
+                        Dashboard Laporan Zakat
+                    </h2>
 
-        <p class="dashboard-subtitle mb-0">
-            Monitoring zakat, infaq, fidya dan transaksi pembayaran
-        </p>
-    </div>
+                    <p class="dashboard-subtitle mb-0">
+                        Monitoring zakat, infaq, fidya dan transaksi pembayaran
+                    </p>
+                </div>
 
-    <div class="dashboard-date">
-        {{ now()->timezone('Asia/Jakarta')->format('d F Y') }}
-    </div>
+                <div class="dashboard-date">
+                    {{ now()->timezone('Asia/Jakarta')->format('d F Y') }}
+                </div>
 
-</div>
+            </div>
 
 
-<form method="GET" class="filter-card mb-5">
+            <form method="GET" class="filter-card mb-5">
 
-    <div class="row g-3 align-items-end">
+                <div class="row g-3 align-items-end">
 
-        <!-- Tahun -->
-        <div class="col-lg-3 col-md-6">
+                    <!-- Tahun -->
+                    <div class="col-lg-3 col-md-6">
 
-            <label class="filter-label">
-                Tahun
-            </label>
+                        <label class="filter-label">
+                            Tahun
+                        </label>
 
-            <select name="tahun" class="form-select">
+                        <select name="tahun" class="form-select">
 
-                <option value="">Semua Tahun</option>
+                            <option value="">Semua Tahun</option>
 
-                @foreach ($tahunList as $th)
-                    <option value="{{ $th }}" {{ $tahun == $th ? 'selected' : '' }}>
-                        {{ $th }}
-                    </option>
-                @endforeach
+                            @foreach ($tahunList as $th)
+                                <option value="{{ $th }}" {{ $tahun == $th ? 'selected' : '' }}>
+                                    {{ $th }}
+                                </option>
+                            @endforeach
 
-            </select>
+                        </select>
 
-        </div>
+                    </div>
 
-        <!-- Metode -->
-        <div class="col-lg-3 col-md-6">
+                    <!-- Metode -->
+                    <div class="col-lg-3 col-md-6">
 
-            <label class="filter-label">
-                Metode Pembayaran
-            </label>
+                        <label class="filter-label">
+                            Metode Pembayaran
+                        </label>
 
-            <select name="metode" class="form-select">
+                        <select name="metode" class="form-select">
 
-                <option value="">Semua Metode</option>
+                            <option value="">Semua Metode</option>
 
-                <option value="cash" {{ $metode == 'cash' ? 'selected' : '' }}>
-                    Cash
-                </option>
+                            <option value="cash" {{ $metode == 'cash' ? 'selected' : '' }}>
+                                Cash
+                            </option>
 
-                <option value="transfer" {{ $metode == 'transfer' ? 'selected' : '' }}>
-                    Transfer
-                </option>
+                            <option value="transfer" {{ $metode == 'transfer' ? 'selected' : '' }}>
+                                Transfer
+                            </option>
 
-            </select>
+                        </select>
 
-        </div>
+                    </div>
 
-        <!-- Tanggal -->
-        <div class="col-lg-3 col-md-6">
+                    <!-- Tanggal -->
+                    <div class="col-lg-3 col-md-6">
 
-            <label class="filter-label">
-                Tanggal
-            </label>
+                        <label class="filter-label">
+                            Tanggal
+                        </label>
 
-            <input type="date"
-                   name="tanggal"
-                   value="{{ $tanggal }}"
-                   class="form-control">
+                        <input type="date" name="tanggal" value="{{ $tanggal }}" class="form-control">
 
-        </div>
+                    </div>
 
-        <!-- Sorting -->
-        <div class="col-lg-2 col-md-4">
+                    <!-- Sorting -->
+                    <div class="col-lg-2 col-md-4">
 
-            <label class="filter-label">
-                Sorting
-            </label>
+                        <label class="filter-label">
+                            Sorting
+                        </label>
 
-            <select name="sort" class="form-select">
+                        <select name="sort" class="form-select">
 
-                <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>
-                    Terbaru
-                </option>
+                            <option value="desc" {{ $sort == 'desc' ? 'selected' : '' }}>
+                                Terbaru
+                            </option>
 
-                <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>
-                    Terlama
-                </option>
+                            <option value="asc" {{ $sort == 'asc' ? 'selected' : '' }}>
+                                Terlama
+                            </option>
 
-            </select>
+                        </select>
 
-        </div>
+                    </div>
 
-        <!-- Tombol -->
-        <div class="col-lg-1 col-md-2">
+                    <!-- Tombol -->
+                    <div class="col-lg-1 col-md-2">
 
-            <button type="submit"
-                    class="btn filter-btn w-100">
+                        <button type="submit" class="btn filter-btn w-100">
 
-                Filter
+                            Filter
 
-            </button>
+                        </button>
 
-        </div>
+                    </div>
 
-    </div>
+                </div>
 
-</form>
+            </form>
             <div class="summary-grid mb-4">
 
                 <div class="summary-card">
