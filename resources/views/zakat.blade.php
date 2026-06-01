@@ -42,76 +42,119 @@
 
     <script>
         const harga = 40000;
-        const kg = 2.5;
+        const kgDefault = 2.5;
+
+        let manualFitrah = false;
+        let manualKg = false;
 
         window.pilihJiwa = function(n) {
 
-            document.querySelectorAll(".jiwa-box").forEach(b => {
-                b.classList.remove("active");
-            });
+            document.querySelectorAll(".jiwa-box")
+                .forEach(b => b.classList.remove("active"));
 
             event.target.classList.add("active");
 
             document.getElementById("jumlahJiwa").value = n;
 
-            hitungTotal();
+            // reset manual saat pilih jiwa lagi
+            manualFitrah = false;
+            manualKg = false;
 
+            hitungTotal();
         }
 
         function angka(v) {
-            return parseInt(v.replace(/\./g, '')) || 0;
+            return parseInt((v || '').replace(/\./g, '')) || 0;
         }
 
         function format(v) {
-            return v.toLocaleString("id-ID");
+            return Number(v).toLocaleString("id-ID");
         }
 
         function hitungTotal() {
 
-            let jiwa = parseInt(document.getElementById("jumlahJiwa").value) || 0;
+            let jiwa =
+                parseInt(document.getElementById("jumlahJiwa").value) || 0;
 
-            let metode = document.querySelector('input[name="metode_fitrah"]:checked').value;
+            let metode =
+                document.querySelector(
+                    'input[name="metode_fitrah"]:checked'
+                ).value;
 
-            let fitrah = 0;
-            let beras = 0;
+            let fitrahInput =
+                document.getElementById("fitrah");
 
+            let kgInput =
+                document.getElementById("kg");
+
+            // AUTO DEFAULT
             if (metode === "uang") {
-                fitrah = jiwa * harga;
+
+                if (!manualFitrah) {
+                    fitrahInput.value =
+                        jiwa > 0
+                        ? format(jiwa * harga)
+                        : '';
+                }
+
+                if (!manualKg) {
+                    kgInput.value = '';
+                }
+
             } else {
-                beras = jiwa * kg;
+
+                if (!manualKg) {
+                    kgInput.value =
+                        jiwa > 0
+                        ? jiwa * kgDefault
+                        : '';
+                }
+
+                if (!manualFitrah) {
+                    fitrahInput.value = '';
+                }
             }
 
-            document.getElementById("fitrah").value = fitrah ? format(fitrah) : 0;
-            document.getElementById("kg").value = beras;
+            // ambil nominal manual / otomatis
+            let fitrah =
+                angka(fitrahInput.value);
 
-            let infaq = angka(document.getElementById("infaq").value);
-            let mal = angka(document.getElementById("mal").value);
-            let fidya = angka(document.getElementById("fidya").value);
+            let infaq =
+                angka(document.getElementById("infaq").value);
 
-            document.querySelector("input[name='infaq']").value = infaq;
-            document.querySelector("input[name='mal']").value = mal;
-            document.querySelector("input[name='fidya']").value = fidya;
+            let mal =
+                angka(document.getElementById("mal").value);
 
-            let total = fitrah + infaq + mal + fidya;
+            let fidya =
+                angka(document.getElementById("fidya").value);
 
-            document.getElementById("totalBayar").innerText = format(total);
-            document.getElementById("totalInput").value = total;
+            let total =
+                fitrah + infaq + mal + fidya;
 
+            document.getElementById("totalBayar")
+                .innerText = format(total);
+
+            document.getElementById("totalInput")
+                .value = total;
         }
 
-        document.querySelectorAll(".rupiah").forEach(input => {
+        document.querySelectorAll(".rupiah")
+            .forEach(input => {
 
-            input.addEventListener("input", function() {
+                input.addEventListener("input", function() {
 
-                let angkaOnly = this.value.replace(/\D/g, '');
+                    let angkaOnly =
+                        this.value.replace(/\D/g, '');
 
-                this.value = format(parseInt(angkaOnly || 0));
+                    this.value =
+                        angkaOnly
+                        ? format(parseInt(angkaOnly))
+                        : '';
 
-                hitungTotal();
+                    hitungTotal();
+                });
 
             });
-
-        });
     </script>
 
 </body>

@@ -7,7 +7,6 @@ use App\Models\Pembayaran;
 
 class ZakatController extends Controller
 {
-
     public function simpan(Request $request)
     {
         $noKwitansi = 'KW-' . date('YmdHis');
@@ -17,136 +16,163 @@ class ZakatController extends Controller
         $atasNamaJson = json_encode($atasNamaClean);
 
         $fitrah = (int) str_replace('.', '', $request->fitrah ?? 0);
-        $kg     = (float) ($request->kg ?? 0);
-        $mal    = (int) str_replace('.', '', $request->mal ?? 0);
-        $infaq  = (int) str_replace('.', '', $request->infaq ?? 0);
+        $kg = (float) ($request->kg ?? 0);
+        $mal = (int) str_replace('.', '', $request->mal ?? 0);
+        $infaq = (int) str_replace('.', '', $request->infaq ?? 0);
         $shodaqoh = (int) str_replace('.', '', $request->shodaqoh ?? 0);
-        $fidya  = (int) str_replace('.', '', $request->fidya ?? 0);
+        $fidya = (int) str_replace('.', '', $request->fidya ?? 0);
 
         $total = $fitrah + $infaq + $shodaqoh + $mal + $fidya;
 
-        // pastikan metode selalu ada
         $metode = $request->metode_pembayaran;
         if ($metode !== 'transfer') {
             $metode = 'cash';
         }
 
         $data = Pembayaran::create([
-            'no_kwitansi'      => $noKwitansi,
-            'nama'             => $request->nama,
-            'alamat'           => $request->alamat,
-            'atas_nama'        => $atasNamaJson,
-            'zakat_fitrah_rp'  => $fitrah,
-            'zakat_fitrah_kg'  => $kg,
-            'zakat_mal'        => $mal,
-            'infaq_shodaqoh'   => $infaq + $shodaqoh,
-            'fidya'            => $fidya,
-            'total'            => $total,
-            'metode_pembayaran'=> $metode
+            'no_kwitansi'       => $noKwitansi,
+            'nama'              => $request->nama,
+            'alamat'            => $request->alamat,
+            'atas_nama'         => $atasNamaJson,
+            'zakat_fitrah_rp'   => $fitrah,
+            'zakat_fitrah_kg'   => $kg,
+            'zakat_mal'         => $mal,
+            'infaq_shodaqoh'    => $infaq + $shodaqoh,
+            'fidya'             => $fidya,
+            'total'             => $total,
+            'metode_pembayaran' => $metode
+            
         ]);
 
         return redirect()->route('cetak', $data->id);
     }
-
 
     public function cetak($id)
     {
         $data = Pembayaran::findOrFail($id);
 
         $atasNama = [];
+
         if (!empty($data->atas_nama)) {
             $decoded = json_decode($data->atas_nama, true);
+
             if (is_array($decoded)) {
                 $atasNama = $decoded;
             }
         }
 
         return view('cetak', [
-            'nama'   => $data->nama,
-            'alamat' => $data->alamat,
-            'fitrah' => $data->zakat_fitrah_rp,
-            'kg'     => $data->zakat_fitrah_kg,
-            'mal'    => $data->zakat_mal,
-            'infaq'  => $data->infaq_shodaqoh,
-            'shodaqoh'=> 0,
-            'fidya'  => $data->fidya,
-            'atas_nama'=> $atasNama,
-            'metode' => $data->metode_pembayaran ?? 'cash'
+            'nama'       => $data->nama,
+            'alamat'     => $data->alamat,
+            'fitrah'     => $data->zakat_fitrah_rp,
+            'kg'         => $data->zakat_fitrah_kg,
+            'mal'        => $data->zakat_mal,
+            'infaq'      => $data->infaq_shodaqoh,
+            'shodaqoh'   => 0,
+            'fidya'      => $data->fidya,
+            'atas_nama'  => $atasNama,
+            'metode'     => $data->metode_pembayaran ?? 'cash'
         ]);
     }
 
+    public function riwayat(Request $request)
+    {
+        $tahun = $request->tahun;
 
-public function riwayat(Request $request)
-{
-    $tahun = $request->tahun;
+        $query = Pembayaran::query();
 
-    $query = Pembayaran::query();
+        if ($tahun) {
+            $query->whereYear('created_at', $tahun);
+        }
 
-    if ($tahun) {
-        $query->whereYear('created_at', $tahun);
+        $data = $query->latest()->get();
+
+        $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        return view('riwayat', compact(
+            'data',
+            'tahunList',
+            'tahun'
+        ));
     }
 
-    $data = $query->latest()->get();
+    public function laporan(Request $request)
+    {
+        $tahun = $request->tahun;
+        $metode = $request->metode;
+        $tanggal = $request->tanggal;
+        $sort = $request->sort ?? 'desc';
 
-    $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
-        ->distinct()
-        ->orderBy('tahun', 'desc')
-        ->pluck('tahun');
+        // RANGE PRINT
+        $no_dari = $request->no_dari;
+        $no_sampai = $request->no_sampai;
 
-    return view('riwayat', compact('data', 'tahunList', 'tahun'));
-}
+        $query = Pembayaran::query();
 
-public function laporan(Request $request)
-{
-    $tahun = $request->tahun;
-    $metode = $request->metode;
-    $tanggal = $request->tanggal;
-    $sort = $request->sort ?? 'desc';
+        // FILTER TAHUN
+        if ($tahun) {
+            $query->whereYear('created_at', $tahun);
+        }
 
-    $query = Pembayaran::query();
+        // FILTER METODE
+        if ($metode) {
+            $query->where('metode_pembayaran', $metode);
+        }
 
-    // Filter Tahun
-    if ($tahun) {
-        $query->whereYear('created_at', $tahun);
+        // FILTER TANGGAL
+        if ($tanggal) {
+            $query->whereDate('created_at', $tanggal);
+        }
+
+        // SORTING
+        $query->orderBy('created_at', $sort);
+
+        $data = $query->get();
+
+        // FILTER RANGE NOMOR
+        if ($no_dari || $no_sampai) {
+
+            $mulai = max(1, (int) $no_dari);
+            $akhir = (int) $no_sampai;
+
+            if ($akhir > 0) {
+                $data = $data->slice(
+                    $mulai - 1,
+                    ($akhir - $mulai) + 1
+                )->values();
+            }
+        }
+
+        $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        return view('laporan', compact(
+            'data',
+            'tahunList',
+            'tahun',
+            'metode',
+            'tanggal',
+            'sort',
+            'no_dari',
+            'no_sampai'
+        ));
     }
 
-    // Filter Metode
-    if ($metode) {
-        $query->where('metode_pembayaran', $metode);
-    }
-
-    // Filter Tanggal
-    if ($tanggal) {
-        $query->whereDate('created_at', $tanggal);
-    }
-
-    // Sorting
-    $query->orderBy('created_at', $sort);
-
-    $data = $query->get();
-
-    $tahunList = Pembayaran::selectRaw('YEAR(created_at) as tahun')
-        ->distinct()
-        ->orderBy('tahun', 'desc')
-        ->pluck('tahun');
-
-    return view('laporan', compact(
-        'data',
-        'tahunList',
-        'tahun',
-        'metode',
-        'tanggal',
-        'sort'
-    ));
-}
     public function edit($id)
     {
         $data = Pembayaran::findOrFail($id);
         $atasNama = json_decode($data->atas_nama, true);
 
-        return view('edit', compact('data','atasNama'));
+        return view('edit', compact(
+            'data',
+            'atasNama'
+        ));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -157,35 +183,35 @@ public function laporan(Request $request)
         $atasNamaJson = json_encode($atasNamaClean);
 
         $fitrah = (int) str_replace('.', '', $request->fitrah ?? 0);
-        $kg     = (float) ($request->kg ?? 0);
-        $mal    = (int) str_replace('.', '', $request->mal ?? 0);
-        $infaq  = (int) str_replace('.', '', $request->infaq ?? 0);
+        $kg = (float) ($request->kg ?? 0);
+        $mal = (int) str_replace('.', '', $request->mal ?? 0);
+        $infaq = (int) str_replace('.', '', $request->infaq ?? 0);
         $shodaqoh = (int) str_replace('.', '', $request->shodaqoh ?? 0);
-        $fidya  = (int) str_replace('.', '', $request->fidya ?? 0);
+        $fidya = (int) str_replace('.', '', $request->fidya ?? 0);
 
         $total = $fitrah + $infaq + $shodaqoh + $mal + $fidya;
 
         $metode = $request->metode_pembayaran;
+
         if ($metode !== 'transfer') {
             $metode = 'cash';
         }
 
         $data->update([
-            'nama'            => $request->nama,
-            'alamat'          => $request->alamat,
-            'atas_nama'       => $atasNamaJson,
-            'zakat_fitrah_rp' => $fitrah,
-            'zakat_fitrah_kg' => $kg,
-            'zakat_mal'       => $mal,
-            'infaq_shodaqoh'  => $infaq + $shodaqoh,
-            'fidya'           => $fidya,
-            'total'           => $total,
-            'metode_pembayaran'=> $metode
+            'nama'               => $request->nama,
+            'alamat'             => $request->alamat,
+            'atas_nama'          => $atasNamaJson,
+            'zakat_fitrah_rp'    => $fitrah,
+            'zakat_fitrah_kg'    => $kg,
+            'zakat_mal'          => $mal,
+            'infaq_shodaqoh'     => $infaq + $shodaqoh,
+            'fidya'              => $fidya,
+            'total'              => $total,
+            'metode_pembayaran'  => $metode
         ]);
 
         return redirect()->route('riwayat');
     }
-
 
     public function hapus($id)
     {
@@ -194,5 +220,4 @@ public function laporan(Request $request)
 
         return redirect()->route('riwayat');
     }
-
 }

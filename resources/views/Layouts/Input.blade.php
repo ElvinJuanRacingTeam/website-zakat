@@ -42,6 +42,7 @@
     <input 
         type="number"
         id="jumlahJiwa"
+        name="jumlah_jiwa"
         class="form-control"
         min="1"
         value="0"

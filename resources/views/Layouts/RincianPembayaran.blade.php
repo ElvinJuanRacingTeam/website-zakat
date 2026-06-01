@@ -22,11 +22,21 @@
                         <div class="row">
 
                             <div class="col-8">
-                                <input name="fitrah" id="fitrah" class="form-control" readonly>
+                                <input 
+                                    name="fitrah"
+                                    id="fitrah"
+                                    class="form-control rupiah"
+                                    placeholder="0"
+                                    oninput="manualFitrah = true; hitungTotal()">
                             </div>
 
                             <div class="col-4">
-                                <input name="kg" id="kg" class="form-control" readonly placeholder="KG">
+                                <input
+                                    name="kg"
+                                    id="kg"
+                                    class="form-control"
+                                    placeholder="KG"
+                                    oninput="manualKg = true; hitungTotal()">
                             </div>
 
                         </div>

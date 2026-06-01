@@ -5,7 +5,7 @@
 
         <div>
             <div class="brand-title">SADAR</div>
-            <div class="brand-sub">MASJID NURUL HIKMAH</div>
+            <div class="brand-sub">Sistem Data Zakat Warga</div>
         </div>
     </div>
 
