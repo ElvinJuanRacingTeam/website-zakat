@@ -11,9 +11,7 @@ class ZakatController extends Controller
     {
         $noKwitansi = 'KW-' . date('YmdHis');
 
-        $atasNamaArray = $request->atas_nama ?? [];
-        $atasNamaClean = array_filter($atasNamaArray);
-        $atasNamaJson = json_encode($atasNamaClean);
+        $jumlahJiwa = (int) $request->jumlah_jiwa;
 
         $fitrah = (int) str_replace('.', '', $request->fitrah ?? 0);
         $kg = (float) ($request->kg ?? 0);
@@ -30,10 +28,11 @@ class ZakatController extends Controller
         }
 
         $data = Pembayaran::create([
+            
             'no_kwitansi'       => $noKwitansi,
             'nama'              => $request->nama,
             'alamat'            => $request->alamat,
-            'atas_nama'         => $atasNamaJson,
+            'atas_nama'         => json_encode([$jumlahJiwa]),
             'zakat_fitrah_rp'   => $fitrah,
             'zakat_fitrah_kg'   => $kg,
             'zakat_mal'         => $mal,
@@ -60,7 +59,7 @@ class ZakatController extends Controller
                 $atasNama = $decoded;
             }
         }
-
+        $jumlahJiwa = $atasNama[0] ?? 0;
         return view('cetak', [
             'nama'       => $data->nama,
             'alamat'     => $data->alamat,
@@ -71,7 +70,9 @@ class ZakatController extends Controller
             'shodaqoh'   => 0,
             'fidya'      => $data->fidya,
             'atas_nama'  => $atasNama,
+            'jumlahJiwa' => $jumlahJiwa,
             'metode'     => $data->metode_pembayaran ?? 'cash'
+            
         ]);
     }
 

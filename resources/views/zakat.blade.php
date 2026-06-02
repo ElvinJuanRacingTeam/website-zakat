@@ -8,153 +8,43 @@
  <link rel="icon" type="image/png" href="/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     @vite('resources/css/zakat.css')
+    @vite('resources/js/Zakatlogic.js')
 </head>
 
 <body>
 
     @include('Pages.navbar')
 
-    <div class="container py-5">
-        <div class="form-card">
+<div class="container py-5">
+    <div class="form-card">
 
-            <h3 class="fw-bold mb-2">Formulir Pembayaran Zakat</h3>
-            <p class="text-muted mb-4">Silakan isi data muzakki dan jumlah jiwa yang dizakatkan.</p>
+        <h3 class="fw-bold mb-2">
+            Formulir Pembayaran Zakat
+        </h3>
 
-            <form method="POST" action="{{ route('simpan') }}">
-                @csrf
+        <p class="text-muted mb-4">
+            Silakan isi data muzakki dan jumlah jiwa yang dizakatkan.
+        </p>
 
-                @include('Layouts.input')
+        <form method="POST" action="{{ route('simpan') }}">
+            @csrf
 
-                @include('Layouts.RincianPembayaran')
-        </div>
+            @include('Layouts.input')
+            @include('Layouts.RincianPembayaran')
+
+            <div class="mt-4 text-end">
+                <button type="submit" class="btn-green">
+                    ✔ Simpan & Cetak Kuitansi
+                </button>
+            </div>
+
+        </form>
+
     </div>
-
-    <div class="mt-5 text-end">
-        <button type="submit" class="btn-green">
-            ✔ Simpan & Cetak Kuitansi
-        </button>
-    </div>
-
-    </form>
-
-    </div>
-    </div>
+</div>
 
     <script>
-        const harga = 40000;
-        const kgDefault = 2.5;
-
-        let manualFitrah = false;
-        let manualKg = false;
-
-        window.pilihJiwa = function(n) {
-
-            document.querySelectorAll(".jiwa-box")
-                .forEach(b => b.classList.remove("active"));
-
-            event.target.classList.add("active");
-
-            document.getElementById("jumlahJiwa").value = n;
-
-            // reset manual saat pilih jiwa lagi
-            manualFitrah = false;
-            manualKg = false;
-
-            hitungTotal();
-        }
-
-        function angka(v) {
-            return parseInt((v || '').replace(/\./g, '')) || 0;
-        }
-
-        function format(v) {
-            return Number(v).toLocaleString("id-ID");
-        }
-
-        function hitungTotal() {
-
-            let jiwa =
-                parseInt(document.getElementById("jumlahJiwa").value) || 0;
-
-            let metode =
-                document.querySelector(
-                    'input[name="metode_fitrah"]:checked'
-                ).value;
-
-            let fitrahInput =
-                document.getElementById("fitrah");
-
-            let kgInput =
-                document.getElementById("kg");
-
-            // AUTO DEFAULT
-            if (metode === "uang") {
-
-                if (!manualFitrah) {
-                    fitrahInput.value =
-                        jiwa > 0
-                        ? format(jiwa * harga)
-                        : '';
-                }
-
-                if (!manualKg) {
-                    kgInput.value = '';
-                }
-
-            } else {
-
-                if (!manualKg) {
-                    kgInput.value =
-                        jiwa > 0
-                        ? jiwa * kgDefault
-                        : '';
-                }
-
-                if (!manualFitrah) {
-                    fitrahInput.value = '';
-                }
-            }
-
-            // ambil nominal manual / otomatis
-            let fitrah =
-                angka(fitrahInput.value);
-
-            let infaq =
-                angka(document.getElementById("infaq").value);
-
-            let mal =
-                angka(document.getElementById("mal").value);
-
-            let fidya =
-                angka(document.getElementById("fidya").value);
-
-            let total =
-                fitrah + infaq + mal + fidya;
-
-            document.getElementById("totalBayar")
-                .innerText = format(total);
-
-            document.getElementById("totalInput")
-                .value = total;
-        }
-
-        document.querySelectorAll(".rupiah")
-            .forEach(input => {
-
-                input.addEventListener("input", function() {
-
-                    let angkaOnly =
-                        this.value.replace(/\D/g, '');
-
-                    this.value =
-                        angkaOnly
-                        ? format(parseInt(angkaOnly))
-                        : '';
-
-                    hitungTotal();
-                });
-
-            });
+    
     </script>
 
 </body>

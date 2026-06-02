@@ -1,72 +1,97 @@
+function angka(v) {
+    return parseInt((v || "").replace(/\./g, "")) || 0;
+}
 
-        const harga = 40000;
-        const kg = 2.5;
+function format(v) {
+    return Number(v).toLocaleString("id-ID");
+}
 
-        function pilihJiwa(n) {
+window.pilihJiwa = function (n) {
 
-            document.querySelectorAll(".jiwa-box").forEach(b => {
-                b.classList.remove("active");
-            });
+    document.querySelectorAll(".jiwa-box")
+        .forEach(el => el.classList.remove("active"));
 
-            event.target.classList.add("active");
+    document.getElementById("jumlahJiwa").value = n;
 
-            document.getElementById("jumlahJiwa").value = n;
+    hitungTotal();
+};
 
-            hitungTotal();
+window.hitungTotal = function () {
 
-        }
+    let jiwa =
+        parseInt(document.getElementById("jumlahJiwa")?.value) || 0;
 
-        function angka(v) {
-            return parseInt(v.replace(/\./g, '')) || 0;
-        }
+    let harga =
+        angka(document.getElementById("hargaFitrah")?.value);
 
-        function format(v) {
-            return v.toLocaleString("id-ID");
-        }
+    let metode =
+        document.querySelector(
+            'input[name="metode_fitrah"]:checked'
+        )?.value;
 
-        function hitungTotal() {
+    let fitrah = 0;
+    let kg = 0;
 
-            let jiwa = parseInt(document.getElementById("jumlahJiwa").value);
+    if (metode === "uang") {
 
-            let metode = document.querySelector('input[name="metode_fitrah"]:checked').value;
+        fitrah = jiwa * harga;
 
-            let fitrah = 0;
-            let beras = 0;
+        document.getElementById("fitrah").value =
+            fitrah ? format(fitrah) : "";
 
-            if (metode === "uang") {
-                fitrah = jiwa * harga;
-            } else {
-                beras = jiwa * kg;
-            }
+        document.getElementById("kg").value = "";
 
-            document.getElementById("fitrah").value = fitrah ? format(fitrah) : 0;
-            document.getElementById("kg").value = beras;
+    } else {
 
-            let infaq = angka(document.getElementById("infaq").value);
-            let mal = angka(document.getElementById("mal").value);
-            let fidya = angka(document.getElementById("fidya").value);
+        kg = jiwa * 2.5;
 
-            document.querySelector("input[name='infaq']").value = infaq;
-            document.querySelector("input[name='mal']").value = mal;
-            document.querySelector("input[name='fidya']").value = fidya;
+        document.getElementById("kg").value = kg;
 
-            let total = fitrah + infaq + mal + fidya;
+        document.getElementById("fitrah").value = "";
+    }
 
-            document.getElementById("totalBayar").innerText = format(total);
-            document.getElementById("totalInput").value = total;
+    let infaq =
+        angka(document.getElementById("infaq")?.value);
 
-        }
+    let mal =
+        angka(document.getElementById("mal")?.value);
 
-        document.querySelectorAll(".rupiah").forEach(input => {
+    let fidya =
+        angka(document.getElementById("fidya")?.value);
 
-            input.addEventListener("input", function() {
+    document.querySelector("input[name='infaq']").value = infaq;
+    document.querySelector("input[name='mal']").value = mal;
+    document.querySelector("input[name='fidya']").value = fidya;
 
-                let angkaOnly = this.value.replace(/\D/g, '');
+    let total =
+        fitrah + infaq + mal + fidya;
 
-                this.value = format(parseInt(angkaOnly || 0));
+    document.getElementById("totalBayar").innerText =
+        format(total);
+
+    document.getElementById("totalInput").value =
+        total;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll(".rupiah")
+        .forEach(input => {
+
+            input.addEventListener("input", function () {
+
+                let angkaOnly =
+                    this.value.replace(/\D/g, "");
+
+                this.value =
+                    angkaOnly
+                        ? format(parseInt(angkaOnly))
+                        : "";
 
                 hitungTotal();
-
             });
 
         });
+
+    hitungTotal();
+});

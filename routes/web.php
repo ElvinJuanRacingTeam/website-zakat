@@ -5,7 +5,7 @@ use App\Http\Controllers\ZakatController;
 
 Route::get('/', function () {
     return view('zakat');
-})->name('zakat');
+});
 
 Route::post('/simpan', [ZakatController::class, 'simpan'])->name('simpan');
 

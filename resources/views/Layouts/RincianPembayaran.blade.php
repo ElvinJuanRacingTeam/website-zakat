@@ -1,97 +1,205 @@
-         <div class="col-md-6">
+    <!-- RINCIAN PEMBAYARAN -->
+    <div class="col-md-6">
 
-                    <div class="section-title">RINCIAN PEMBAYARAN</div>
+        <div class="section-title">
+            RINCIAN PEMBAYARAN
+        </div>
 
-                    <div class="mb-3">
+        <!-- HARGA FITRAH -->
+        <div class="mb-3">
 
-                        <label class="form-label">Metode Zakat Fitrah</label>
+            <label class="form-label">
+                Harga Fitrah per Jiwa
+            </label>
 
-                        <div class="d-flex gap-3">
-                            <label><input type="radio" name="metode_fitrah" value="uang" checked
-                                    onchange="hitungTotal()"> Uang</label>
-                            <label><input type="radio" name="metode_fitrah" value="beras" onchange="hitungTotal()">
-                                Beras</label>
-                        </div>
+            <input
+                type="text"
+                id="hargaFitrah"
+                class="form-control rupiah"
+                value="40.000"
+                oninput="hitungTotal()">
 
-                    </div>
+            <small class="text-muted">
+                Sesuaikan dengan harga beras daerah setempat
+            </small>
 
-                    <div class="mb-4">
+        </div>
 
-                        <label class="form-label">Zakat Fitrah</label>
+        <!-- METODE -->
+        <div class="mb-3">
 
-                        <div class="row">
+            <label class="form-label">
+                Metode Zakat Fitrah
+            </label>
 
-                            <div class="col-8">
-                                <input 
-                                    name="fitrah"
-                                    id="fitrah"
-                                    class="form-control rupiah"
-                                    placeholder="0"
-                                    oninput="manualFitrah = true; hitungTotal()">
-                            </div>
+            <div class="d-flex gap-3">
 
-                            <div class="col-4">
-                                <input
-                                    name="kg"
-                                    id="kg"
-                                    class="form-control"
-                                    placeholder="KG"
-                                    oninput="manualKg = true; hitungTotal()">
-                            </div>
+                <label>
+                    <input
+                        type="radio"
+                        name="metode_fitrah"
+                        value="uang"
+                        checked
+                        onchange="hitungTotal()">
+                    Uang
+                </label>
 
-                        </div>
+                <label>
+                    <input
+                        type="radio"
+                        name="metode_fitrah"
+                        value="beras"
+                        onchange="hitungTotal()">
+                    Beras
+                </label>
 
-                        <small class="text-muted">
-                            Rp 40.000 / jiwa | 2.5 KG beras
-                        </small>
+            </div>
 
-                    </div>
+        </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Infaq / Shodaqoh</label>
-                        <input id="infaq" class="form-control rupiah" placeholder="0">
-                        <input type="hidden" name="infaq">
-                    </div>
+        <!-- FITRAH -->
+        <div class="mb-4">
 
-                    <div class="row">
+            <label class="form-label">
+                Zakat Fitrah
+            </label>
 
-                        <div class="col-6">
-                            <label class="form-label">Zakat Mal</label>
-                            <input id="mal" class="form-control rupiah" placeholder="0">
-                            <input type="hidden" name="mal">
-                        </div>
+            <div class="row">
 
-                        <div class="col-6">
-                            <label class="form-label">Fidya</label>
-                            <input id="fidya" class="form-control rupiah" placeholder="0">
-                            <input type="hidden" name="fidya">
-                        </div>
+                <div class="col-8">
 
-                    </div>
+                    <input
+                        name="fitrah"
+                        id="fitrah"
+                        class="form-control rupiah"
+                        placeholder="0"
+                        readonly>
 
-                    <div class="col-12 mt-4">
-                        <div class="total-box">
-                            Total Bayar : Rp <span id="totalBayar">0</span>
-                            <input type="hidden" name="total" id="totalInput">
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="mt-4">
+                <div class="col-4">
 
-                        <label class="form-label">Metode Pembayaran</label>
+                    <input
+                        name="kg"
+                        id="kg"
+                        class="form-control"
+                        placeholder="KG"
+                        readonly>
 
-                        <div class="d-flex gap-3">
+                </div>
 
-                            <label>
-                                <input type="radio" name="metode_pembayaran" value="cash" checked>
-                                Cash
-                            </label>
+            </div>
 
-                            <label>
-                                <input type="radio" name="metode_pembayaran" value="transfer">
-                                Transfer
-                            </label>
+            <small class="text-muted">
+                Otomatis dihitung berdasarkan jumlah jiwa
+            </small>
 
-                        </div>
+        </div>
 
-                    </div>
+        <!-- INFAQ -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Infaq / Shodaqoh
+            </label>
+
+            <input
+                id="infaq"
+                class="form-control rupiah"
+                placeholder="0">
+
+            <input
+                type="hidden"
+                name="infaq">
+
+        </div>
+
+        <!-- MAL & FIDYA -->
+        <div class="row">
+
+            <div class="col-6">
+
+                <label class="form-label">
+                    Zakat Mal
+                </label>
+
+                <input
+                    id="mal"
+                    class="form-control rupiah"
+                    placeholder="0">
+
+                <input
+                    type="hidden"
+                    name="mal">
+
+            </div>
+
+            <div class="col-6">
+
+                <label class="form-label">
+                    Fidya
+                </label>
+
+                <input
+                    id="fidya"
+                    class="form-control rupiah"
+                    placeholder="0">
+
+                <input
+                    type="hidden"
+                    name="fidya">
+
+            </div>
+
+        </div>
+
+        <!-- TOTAL -->
+        <div class="col-12 mt-4">
+
+            <div class="total-box">
+
+                Total Bayar :
+                Rp <span id="totalBayar">0</span>
+
+                <input
+                    type="hidden"
+                    name="total"
+                    id="totalInput">
+
+            </div>
+
+        </div>
+
+        <!-- PEMBAYARAN -->
+        <div class="mt-4">
+
+            <label class="form-label">
+                Metode Pembayaran
+            </label>
+
+            <div class="d-flex gap-3">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="metode_pembayaran"
+                        value="cash"
+                        checked>
+                    Cash
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="metode_pembayaran"
+                        value="transfer">
+                    Transfer
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
