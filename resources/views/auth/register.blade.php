@@ -1,52 +1,172 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SADAR</title>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
+
+    @vite('resources/css/auth.css')
+</head>
+<body>
+
+<div class="login-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+        <div class="brand">
+
+            <div class="logo-box">
+                <img src="{{ asset('logo.png') }}" alt="Logo">
+            </div>
+
+            <div>
+                <h2>SADAR</h2>
+                <p>Sistem Data Zakat Warga</p>
+            </div>
+
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="badge-text">
+            ✨ Digitalisasi Zakat Amanah
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <h1>
+            Buat Akun<br>
+            Masjid Anda
+        </h1>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+        <p class="desc">
+            Kelola zakat fitrah, zakat mal,
+            fidyah, infaq, shodaqoh, dan
+            laporan pembayaran secara digital,
+            aman, dan mudah digunakan.
+        </p>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h4>Data Aman</h4>
+                <p>
+                    Data pembayaran zakat
+                    tersimpan rapi dan aman.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>Kuitansi Instan</h4>
+                <p>
+                    Cetak bukti pembayaran
+                    otomatis dengan cepat.
+                </p>
+            </div>
+
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="footer-left">
+            © SADAR Sistem Zakat
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+    </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+        <div class="login-card">
+
+            <h1>Daftar Akun</h1>
+
+            <p class="subtitle">
+                Buat akun baru untuk masjid Anda
+            </p>
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                <div class="input-group">
+                    <label>Nama Masjid / Pengurus</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ old('name') }}"
+                        placeholder="Masukkan nama masjid"
+                        required
+                    >
+
+                    @error('name')
+                        <small style="color:red">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        placeholder="contoh@email.com"
+                        required
+                    >
+
+                    @error('email')
+                        <small style="color:red">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Masukkan password"
+                        required
+                    >
+
+                    @error('password')
+                        <small style="color:red">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <div class="input-group">
+                    <label>Konfirmasi Password</label>
+
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        placeholder="Ulangi password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Daftar Sekarang
+                </button>
+
+                <div class="register-text">
+                    Sudah punya akun?
+                    <a href="{{ route('login') }}">
+                        Login
+                    </a>
+                </div>
+
+            </form>
+
         </div>
-    </form>
-</x-guest-layout>
+
+    </div>
+
+</div>
+
+</body>
+</html>

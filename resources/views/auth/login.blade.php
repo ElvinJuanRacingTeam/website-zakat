@@ -1,47 +1,156 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SADAR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    @vite('resources/css/auth.css')
+</head>
+<body>
+
+<div class="login-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+        <div class="brand">
+
+            <div class="logo-box">
+                <img src="{{ asset('logo.png') }}" alt="Logo">
+            </div>
+
+            <div>
+                <h2>SADAR</h2>
+                <p>Sistem Data Zakat Warga</p>
+            </div>
+
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="badge-text">
+            ✨ Digitalisasi Zakat Amanah
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
+        <h1>
+            Transparan, Akurat &<br>
+            Terdokumentasi Amanah
+        </h1>
+
+        <p class="desc">
+            SADAR membantu pengelolaan zakat fitrah,
+            zakat mal, fidyah, infaq, dan shodaqoh
+            secara digital, transparan, serta mudah
+            digunakan oleh pengurus masjid.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h4>Mudah & Praktis</h4>
+                <p>
+                    Pencatatan zakat cepat,
+                    rapi, dan mudah digunakan.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>Kuitansi Instan</h4>
+                <p>
+                    Cetak bukti pembayaran
+                    otomatis secara langsung.
+                </p>
+            </div>
+
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+        <div class="footer-left">
+            © SADAR Sistem Zakat
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+        <div class="login-card">
+
+            <h1>Selamat Datang Kembali</h1>
+
+            <p class="subtitle">
+                Silakan login untuk mengakses sistem SADAR.
+            </p>
+
+            @if(session('status'))
+                <div style="
+                    background:#ecfdf5;
+                    color:#166534;
+                    padding:14px;
+                    border-radius:14px;
+                    margin-bottom:20px;
+                    border:1px solid #bbf7d0;
+                ">
+                    {{ session('status') }}
+                </div>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="input-group">
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        placeholder="contoh@email.com"
+                        required
+                        autofocus
+                    >
+
+                    @error('email')
+                        <small style="color:red">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Masukkan password"
+                        required
+                    >
+
+                    @error('password')
+                        <small style="color:red">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Masuk Sekarang
+                </button>
+            </form>
+
+            <div class="register-text">
+                Belum punya akun?
+                <a href="{{ route('register') }}">
+                    Daftar Sekarang
+                </a>
+            </div>
+
         </div>
-    </form>
-</x-guest-layout>
+
+    </div>
+
+</div>
+
+</body>
+</html>
