@@ -329,3 +329,127 @@ RESPONSIVE
         font-size:42px;
     }
 }
+/* =========================
+ANIMATION
+========================= */
+
+/* fade up saat load */
+
+.brand,
+.badge-text,
+.left-panel h1,
+.desc,
+.trust-list,
+.login-card{
+    animation:fadeUp .9s ease forwards;
+}
+
+.badge-text{
+    animation-delay:.1s;
+}
+
+.left-panel h1{
+    animation-delay:.2s;
+}
+
+.desc{
+    animation-delay:.35s;
+}
+
+.trust-list{
+    animation-delay:.5s;
+}
+
+.login-card{
+    animation-delay:.3s;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* floating card */
+
+.trust-item{
+    animation:floating 6s ease-in-out infinite;
+}
+
+.trust-item:nth-child(2){
+    animation-delay:1s;
+}
+
+.trust-item:nth-child(3){
+    animation-delay:2s;
+}
+
+.trust-item:nth-child(4){
+    animation-delay:3s;
+}
+
+@keyframes floating{
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-6px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/* gradient move background */
+
+.left-panel{
+    background-size:200% 200%;
+    animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+/* hover lebih premium */
+
+.feature-card{
+    transition:
+    transform .35s ease,
+    box-shadow .35s ease;
+}
+
+.feature-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.12);
+}
+
+.login-btn{
+    transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.login-btn:hover{
+    transform:translateY(-3px) scale(1.01);
+}
