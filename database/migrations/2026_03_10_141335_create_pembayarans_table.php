@@ -23,7 +23,15 @@ return new class extends Migration
             $table->string('metode_pembayaran')->default('cash');
             $table->timestamps();
         });
+        Schema::table('pembayarans', function (Blueprint $table) {
+
+            $table->foreignId('user_id')
+            ->constrained()
+            ->cascadeOnDelete();
+
+});
     }
+    
 
     public function down()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
+use Illuminate\Support\Facades\Auth;
 
 class ZakatController extends Controller
 {
@@ -28,7 +29,7 @@ class ZakatController extends Controller
         }
 
         $data = Pembayaran::create([
-            
+            'user_id' => Auth::id(),
             'no_kwitansi'       => $noKwitansi,
             'nama'              => $request->nama,
             'alamat'            => $request->alamat,
@@ -48,8 +49,9 @@ class ZakatController extends Controller
 
     public function cetak($id)
     {
-        $data = Pembayaran::findOrFail($id);
-
+       $data = Pembayaran::where('id', $id)
+    ->where('user_id', Auth::id())
+    ->firstOrFail();
         $atasNama = [];
 
         if (!empty($data->atas_nama)) {
@@ -80,7 +82,7 @@ class ZakatController extends Controller
     {
         $tahun = $request->tahun;
 
-        $query = Pembayaran::query();
+        $query = Pembayaran::where('user_id', Auth::id());
 
         if ($tahun) {
             $query->whereYear('created_at', $tahun);
@@ -111,7 +113,7 @@ class ZakatController extends Controller
         $no_dari = $request->no_dari;
         $no_sampai = $request->no_sampai;
 
-        $query = Pembayaran::query();
+        $query = Pembayaran::where('user_id', Auth::id());
 
         // FILTER TAHUN
         if ($tahun) {
@@ -166,7 +168,9 @@ class ZakatController extends Controller
 
     public function edit($id)
     {
-        $data = Pembayaran::findOrFail($id);
+        $data = Pembayaran::where('id', $id)
+    ->where('user_id', Auth::id())
+    ->firstOrFail();
         $atasNama = json_decode($data->atas_nama, true);
 
         return view('edit', compact(
@@ -177,7 +181,9 @@ class ZakatController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = Pembayaran::findOrFail($id);
+        $data = Pembayaran::where('id', $id)
+    ->where('user_id', Auth::id())
+    ->firstOrFail();
 
         $atasNamaArray = $request->atas_nama ?? [];
         $atasNamaClean = array_filter($atasNamaArray);
@@ -216,7 +222,9 @@ class ZakatController extends Controller
 
     public function hapus($id)
     {
-        $data = Pembayaran::findOrFail($id);
+        $data = Pembayaran::where('id', $id)
+    ->where('user_id', Auth::id())
+    ->firstOrFail();
         $data->delete();
 
         return redirect()->route('riwayat');

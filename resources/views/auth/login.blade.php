@@ -103,15 +103,15 @@
                     <label>Email</label>
 
                     <input
-                        type="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                        placeholder="example@email.com"
+                        type="text"
+                        name="login"
+                        value="{{ old('login') }}"
+                        placeholder="Email atau ID Masjid"
                         required
                         autofocus
                     >
 
-                    @error('email')
+                    @error('login')
                         <small style="color:red">
                             {{ $message }}
                         </small>
