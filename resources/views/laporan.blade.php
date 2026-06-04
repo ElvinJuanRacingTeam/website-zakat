@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Zakat</title>
+    <title>Zakat Financial Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,11 +37,11 @@
 
                 <div>
                     <h2 class="dashboard-title mb-1">
-                        Dashboard Laporan Zakat
+                        Zakat Report Dashboard
                     </h2>
 
                     <p class="dashboard-subtitle mb-0">
-                        Monitoring zakat, infaq, fidya dan transaksi pembayaran
+                        Monitoring of Zakat, Infaq, Fidyah, and Payment Transactions
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@
                         type="button"
                         onclick="window.print()"
                         class="btn btn-success btn-print">
-                        Print Semua
+                        Print All Records
                     </button>
 
                     <div class="dashboard-date">
@@ -69,12 +69,12 @@
                     <div class="col-lg-2 col-md-6">
 
                         <label class="filter-label">
-                            Tahun
+                            Fiscal Year
                         </label>
 
                         <select name="tahun" class="form-select">
                             <option value="">
-                                Semua Tahun
+                                All Years
                             </option>
 
                             @foreach ($tahunList as $th)
@@ -90,13 +90,13 @@
                     <div class="col-lg-2 col-md-6">
 
                         <label class="filter-label">
-                            Metode Pembayaran
+                            Payment Method
                         </label>
 
                         <select name="metode" class="form-select">
 
                             <option value="">
-                                Semua Metode
+                                All Methods
                             </option>
 
                             <option value="cash"
@@ -106,7 +106,7 @@
 
                             <option value="transfer"
                                 {{ $metode == 'transfer' ? 'selected' : '' }}>
-                                Transfer
+                                Bank Transfer
                             </option>
 
                         </select>
@@ -116,7 +116,7 @@
                     <div class="col-lg-2 col-md-6">
 
                         <label class="filter-label">
-                            Tanggal
+                            Transaction Date
                         </label>
 
                         <input
@@ -130,19 +130,19 @@
                     <div class="col-lg-2 col-md-4">
 
                         <label class="filter-label">
-                            Sorting
+                            Sort Order
                         </label>
 
                         <select name="sort" class="form-select">
 
                             <option value="desc"
                                 {{ $sort == 'desc' ? 'selected' : '' }}>
-                                Terbaru
+                                Most Recent
                             </option>
 
                             <option value="asc"
                                 {{ $sort == 'asc' ? 'selected' : '' }}>
-                                Terlama
+                                Oldest
                             </option>
 
                         </select>
@@ -153,7 +153,7 @@
                     <div class="col-lg-1 col-md-3">
 
                         <label class="filter-label">
-                            Dari
+                            From (Entry No.)
                         </label>
 
                         <input
@@ -169,7 +169,7 @@
                     <div class="col-lg-1 col-md-3">
 
                         <label class="filter-label">
-                            Sampai
+                            To (Entry No.)
                         </label>
 
                         <input
@@ -187,7 +187,7 @@
                         <button
                             type="submit"
                             class="btn filter-btn w-100">
-                            Filter
+                            Apply Filter
                         </button>
 
                     </div>
@@ -208,9 +208,10 @@
             </form>
 
             <div class="summary-grid mb-4">
-                                <div class="summary-card">
+
+                <div class="summary-card">
                     <div class="summary-title">
-                        Total Transaksi
+                        Total Transactions
                     </div>
 
                     <div class="summary-value">
@@ -220,7 +221,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Zakat Fitrah (Uang)
+                        Zakat Fitrah (Monetary)
                     </div>
 
                     <div class="summary-value">
@@ -230,7 +231,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Zakat Fitrah (Beras)
+                        Zakat Fitrah (Rice Commodity)
                     </div>
 
                     <div class="summary-value">
@@ -240,7 +241,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Infaq
+                        Infaq (Voluntary Donation)
                     </div>
 
                     <div class="summary-value">
@@ -250,7 +251,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Zakat Mal
+                        Zakat Mal (Wealth Tax)
                     </div>
 
                     <div class="summary-value">
@@ -260,7 +261,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Fidya
+                        Fidyah (Fasting Redemption)
                     </div>
 
                     <div class="summary-value">
@@ -270,7 +271,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Pembayaran Cash
+                        Cash Payment
                     </div>
 
                     <div class="summary-value">
@@ -280,7 +281,7 @@
 
                 <div class="summary-card">
                     <div class="summary-title">
-                        Pembayaran Transfer
+                        Bank Transfer Payment
                     </div>
 
                     <div class="summary-value">
@@ -293,7 +294,7 @@
             <div class="total-bar mb-4">
 
                 <div>
-                    Total Keseluruhan Dana
+                    Total Accumulated Funds
                 </div>
 
                 <div>
@@ -308,16 +309,16 @@
 
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Fitrah</th>
+                            <th>No.</th>
+                            <th>Muzakki Name</th>
+                            <th>Residential Address</th>
+                            <th>Zakat Fitrah</th>
                             <th>Zakat Mal</th>
                             <th>Infaq</th>
-                            <th>Fidya</th>
-                            <th>Total</th>
-                            <th>Metode</th>
-                            <th>Tanggal</th>
+                            <th>Fidyah</th>
+                            <th>Total Amount</th>
+                            <th>Payment Method</th>
+                            <th>Transaction Date</th>
                         </tr>
                     </thead>
 
@@ -377,7 +378,7 @@
                                     @if ($item->metode_pembayaran == 'transfer')
 
                                         <span class="badge-transfer">
-                                            Transfer
+                                            Bank Transfer
                                         </span>
 
                                     @else
@@ -409,7 +410,7 @@
     </div>
 
     <!-- PRINT -->
-         <div class="print-wrapper">
+    <div class="print-wrapper">
 
         <div class="print-header">
 
@@ -423,22 +424,22 @@
                 </div>
 
                 <div class="print-sub">
-                    Komplek Gading Tutuka 1
+                    Gading Tutuka 1 Residential Complex
                 </div>
 
                 <div class="print-sub">
-                    Rekap Daftar Penerima Zakat Fitrah,
-                    Zakat Mal, Infaq, Shodaqoh dan Fidya
+                    Summary Report of Zakat Fitrah, Zakat Mal,
+                    Infaq, Shodaqoh, and Fidyah Recipients
                 </div>
 
                 @if (!empty($no_dari) && !empty($no_sampai))
 
                     <div class="print-sub mt-2">
 
-                        Print Range :
+                        Print Range:
                         <strong>
-                            No {{ $no_dari }}
-                            -
+                            Entry No. {{ $no_dari }}
+                            &ndash;
                             {{ $no_sampai }}
                         </strong>
 
@@ -453,7 +454,7 @@
         <div class="print-line"></div>
 
         <p>
-            <strong>Detail Transaksi :</strong>
+            <strong>Transaction Details:</strong>
         </p>
 
         <table class="print-table">
@@ -461,16 +462,16 @@
             <thead>
 
                 <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Fitrah</th>
+                    <th>No.</th>
+                    <th>Muzakki Name</th>
+                    <th>Residential Address</th>
+                    <th>Zakat Fitrah</th>
                     <th>Zakat Mal</th>
                     <th>Infaq</th>
-                    <th>Fidya</th>
-                    <th>Total</th>
-                    <th>Metode</th>
-                    <th>Tanggal</th>
+                    <th>Fidyah</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>Transaction Date</th>
                 </tr>
 
             </thead>
@@ -545,14 +546,14 @@
             <tbody>
 
                 <tr>
-                    <td>TOTAL ZAKAT FITRAH (UANG)</td>
+                    <td>TOTAL ZAKAT FITRAH (MONETARY)</td>
                     <td>
                         Rp {{ number_format($totalFitrah, 0, ',', '.') }}
                     </td>
                 </tr>
 
                 <tr>
-                    <td>TOTAL ZAKAT FITRAH (BERAS)</td>
+                    <td>TOTAL ZAKAT FITRAH (RICE COMMODITY)</td>
                     <td>
                         {{ number_format($totalBeras, 2) }} Kg
                     </td>
@@ -573,21 +574,21 @@
                 </tr>
 
                 <tr>
-                    <td>TOTAL FIDYA</td>
+                    <td>TOTAL FIDYAH</td>
                     <td>
                         Rp {{ number_format($totalFidya, 0, ',', '.') }}
                     </td>
                 </tr>
 
                 <tr>
-                    <td>TOTAL PEMBAYARAN CASH</td>
+                    <td>TOTAL CASH PAYMENTS</td>
                     <td>
                         Rp {{ number_format($totalCash, 0, ',', '.') }}
                     </td>
                 </tr>
 
                 <tr>
-                    <td>TOTAL PEMBAYARAN TRANSFER</td>
+                    <td>TOTAL BANK TRANSFER PAYMENTS</td>
                     <td>
                         Rp {{ number_format($totalTransfer, 0, ',', '.') }}
                     </td>
@@ -595,7 +596,7 @@
 
                 <tr>
                     <td>
-                        TOTAL KESELURUHAN
+                        GRAND TOTAL
                     </td>
 
                     <td>
@@ -609,7 +610,7 @@
 
         <p class="print-date">
 
-            Laporan ini ditarik pada tanggal
+            This report was generated on
 
             {{ now()->timezone('Asia/Jakarta')->format('d F Y H:i') }}
 

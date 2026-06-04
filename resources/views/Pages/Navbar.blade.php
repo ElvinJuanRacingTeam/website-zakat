@@ -12,17 +12,17 @@
 
     <a href="{{ route('zakat') }}"
        class="nav-menu {{ request()->routeIs('zakat') ? 'active' : '' }}">
-        Input Baru
+        Input Data
     </a>
 
     <a href="{{ route('riwayat') }}"
        class="nav-menu {{ request()->routeIs('riwayat') ? 'active' : '' }}">
-        Riwayat
+        History
     </a>
 
     <a href="{{ route('laporan') }}"
        class="nav-menu {{ request()->routeIs('laporan') ? 'active' : '' }}">
-        Laporan
+        Report
     </a>
 
 </div>

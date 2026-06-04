@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,49 +25,49 @@
 
             <div>
                 <h2>SADAR</h2>
-                <p>Sistem Data Zakat Warga</p>
+                <p>Community Zakat Management System</p>
             </div>
 
         </div>
 
         <div class="badge-text">
-            ✨ Digitalisasi Zakat Amanah
+            ✨ Trusted Zakat Digitalization
         </div>
 
         <h1>
-            Buat Akun<br>
-            Masjid Anda
+            Create Your<br>
+            Mosque Account
         </h1>
 
         <p class="desc">
-            Kelola zakat fitrah, zakat mal,
-            fidyah, infaq, shodaqoh, dan
-            laporan pembayaran secara digital,
-            aman, dan mudah digunakan.
+            Manage Zakat al-Fitr, Zakat al-Mal,
+            Fidyah, Infaq, Sadaqah, and payment
+            reports digitally with a secure,
+            transparent, and user-friendly system.
         </p>
 
         <div class="feature-grid">
 
             <div class="feature-card">
-                <h4>Data Aman</h4>
+                <h4>Secure Data</h4>
                 <p>
-                    Data pembayaran zakat
-                    tersimpan rapi dan aman.
+                    Zakat payment records are stored
+                    securely and organized efficiently.
                 </p>
             </div>
 
             <div class="feature-card">
-                <h4>Kuitansi Instan</h4>
+                <h4>Instant Receipts</h4>
                 <p>
-                    Cetak bukti pembayaran
-                    otomatis dengan cepat.
+                    Generate and print payment
+                    receipts instantly.
                 </p>
             </div>
 
         </div>
 
         <div class="footer-left">
-            © SADAR Sistem Zakat
+            © SADAR Zakat Management System
         </div>
 
     </div>
@@ -76,23 +77,23 @@
 
         <div class="login-card">
 
-            <h1>Daftar Akun</h1>
+            <h1>Create Account</h1>
 
             <p class="subtitle">
-                Buat akun baru untuk masjid Anda
+                Create a new account for your mosque
             </p>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div class="input-group">
-                    <label>Nama Masjid / Pengurus</label>
+                    <label>Mosque Name / Administrator</label>
 
                     <input
                         type="text"
                         name="name"
                         value="{{ old('name') }}"
-                        placeholder="Masukkan nama masjid"
+                        placeholder="Enter mosque name"
                         required
                     >
 
@@ -110,7 +111,7 @@
                         type="email"
                         name="email"
                         value="{{ old('email') }}"
-                        placeholder="contoh@email.com"
+                        placeholder="example@email.com"
                         required
                     >
 
@@ -127,7 +128,7 @@
                     <input
                         type="password"
                         name="password"
-                        placeholder="Masukkan password"
+                        placeholder="Enter password"
                         required
                     >
 
@@ -139,24 +140,24 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Konfirmasi Password</label>
+                    <label>Confirm Password</label>
 
                     <input
                         type="password"
                         name="password_confirmation"
-                        placeholder="Ulangi password"
+                        placeholder="Re-enter password"
                         required
                     >
                 </div>
 
                 <button type="submit" class="login-btn">
-                    Daftar Sekarang
+                    Create Account
                 </button>
 
                 <div class="register-text">
-                    Sudah punya akun?
+                    Already have an account?
                     <a href="{{ route('login') }}">
-                        Login
+                        Sign In
                     </a>
                 </div>
 

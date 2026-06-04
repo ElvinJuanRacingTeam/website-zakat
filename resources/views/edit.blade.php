@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Edit Transaksi</title>
+    <title>Edit Transaction</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
-  <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+    <link rel="icon" type="image/png" href="/logo.png">
+
     @vite('resources/css/edit.css')
 </head>
 
@@ -18,7 +19,7 @@
         <div class="card-box">
 
             <h3 class="mb-4 fw-bold">
-                Edit Transaksi
+                Edit Transaction
             </h3>
 
             <form method="POST" action="{{ route('update', $data->id) }}">
@@ -26,100 +27,174 @@
                 @method('PUT')
 
                 <div class="mb-3">
-                    <label>Nama</label>
-                    <input type="text" name="nama" class="form-control" value="{{ $data->nama }}">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        name="nama"
+                        class="form-control"
+                        value="{{ $data->nama }}">
                 </div>
 
                 <div class="mb-3">
-                    <label>Alamat</label>
-                    <input type="text" name="alamat" class="form-control" value="{{ $data->alamat }}">
+                    <label>Address</label>
+                    <input
+                        type="text"
+                        name="alamat"
+                        class="form-control"
+                        value="{{ $data->alamat }}">
                 </div>
 
-
-                <!-- METODE ZAKAT -->
+                <!-- ZAKAT METHOD -->
 
                 <div class="mb-3">
-                    <label class="mb-2">Metode Zakat Fitrah</label>
+
+                    <label class="mb-2">
+                        Zakat Fitrah Method
+                    </label>
 
                     <div class="d-flex gap-3">
 
                         <label>
-                            <input type="radio" name="metode" value="uang"
-                                {{ $data->zakat_fitrah_rp > 0 ? 'checked' : '' }} onclick="pilihUang()">
-                            Uang
+                            <input
+                                type="radio"
+                                name="metode"
+                                value="uang"
+                                {{ $data->zakat_fitrah_rp > 0 ? 'checked' : '' }}
+                                onclick="selectCash()">
+
+                            Money
                         </label>
 
                         <label>
-                            <input type="radio" name="metode" value="beras"
-                                {{ $data->zakat_fitrah_kg > 0 ? 'checked' : '' }} onclick="pilihBeras()">
-                            Beras
+                            <input
+                                type="radio"
+                                name="metode"
+                                value="beras"
+                                {{ $data->zakat_fitrah_kg > 0 ? 'checked' : '' }}
+                                onclick="selectRice()">
+
+                            Rice
                         </label>
 
                     </div>
+
                 </div>
 
-
                 <div class="mb-3">
-                    <label>Zakat Fitrah (Rp)</label>
-                    <input type="number" name="fitrah" id="fitrah" class="form-control"
+
+                    <label>
+                        Zakat Fitrah (IDR)
+                    </label>
+
+                    <input
+                        type="number"
+                        name="fitrah"
+                        id="fitrah"
+                        class="form-control"
                         value="{{ $data->zakat_fitrah_rp }}">
+
                 </div>
 
                 <div class="mb-3">
-                    <label>Zakat Fitrah Beras (KG)</label>
-                    <input type="number" step="0.1" name="kg" id="kg" class="form-control"
+
+                    <label>
+                        Zakat Fitrah Rice (KG)
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        name="kg"
+                        id="kg"
+                        class="form-control"
                         value="{{ $data->zakat_fitrah_kg }}">
-                </div>
 
-
-                <div class="mb-3">
-                    <label>Zakat Mal</label>
-                    <input type="number" name="mal" class="form-control" value="{{ $data->zakat_mal }}">
                 </div>
 
                 <div class="mb-3">
-                    <label>Infaq</label>
-                    <input type="number" name="infaq" class="form-control" value="{{ $data->infaq_shodaqoh }}">
+
+                    <label>
+                        Zakat Mal
+                    </label>
+
+                    <input
+                        type="number"
+                        name="mal"
+                        class="form-control"
+                        value="{{ $data->zakat_mal }}">
+
                 </div>
 
                 <div class="mb-3">
-                    <label>Fidya</label>
-                    <input type="number" name="fidya" class="form-control" value="{{ $data->fidya }}">
+
+                    <label>
+                        Infaq / Sadaqah
+                    </label>
+
+                    <input
+                        type="number"
+                        name="infaq"
+                        class="form-control"
+                        value="{{ $data->infaq_shodaqoh }}">
+
                 </div>
 
+                <div class="mb-3">
 
-                <!-- METODE PEMBAYARAN -->
+                    <label>
+                        Fidya
+                    </label>
+
+                    <input
+                        type="number"
+                        name="fidya"
+                        class="form-control"
+                        value="{{ $data->fidya }}">
+
+                </div>
+
+                <!-- PAYMENT METHOD -->
 
                 <div class="mb-4">
-                    <label class="mb-2">Metode Pembayaran</label>
+
+                    <label class="mb-2">
+                        Payment Method
+                    </label>
 
                     <div class="d-flex gap-3">
 
                         <label>
-                            <input type="radio" name="metode_pembayaran" value="cash"
+                            <input
+                                type="radio"
+                                name="metode_pembayaran"
+                                value="cash"
                                 {{ $data->metode_pembayaran == 'cash' ? 'checked' : '' }}>
+
                             Cash
                         </label>
 
                         <label>
-                            <input type="radio" name="metode_pembayaran" value="transfer"
+                            <input
+                                type="radio"
+                                name="metode_pembayaran"
+                                value="transfer"
                                 {{ $data->metode_pembayaran == 'transfer' ? 'checked' : '' }}>
-                            Transfer
+
+                            Bank Transfer
                         </label>
 
                     </div>
 
                 </div>
 
-
                 <div class="mt-4 d-flex gap-2">
 
                     <button class="btn btn-success">
-                        Update Data
+                        Update Transaction
                     </button>
 
                     <a href="{{ route('riwayat') }}" class="btn btn-secondary">
-                        Kembali
+                        Back
                     </a>
 
                 </div>
@@ -131,11 +206,11 @@
     </div>
 
     <script>
-        function pilihUang() {
+        function selectCash() {
             document.getElementById("kg").value = 0;
         }
 
-        function pilihBeras() {
+        function selectRice() {
             document.getElementById("fitrah").value = 0;
         }
     </script>

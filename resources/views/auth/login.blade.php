@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login - SADAR</title>
@@ -24,49 +25,49 @@
 
             <div>
                 <h2>SADAR</h2>
-                <p>Sistem Data Zakat Warga</p>
+                <p>Community Zakat Management System</p>
             </div>
 
         </div>
 
         <div class="badge-text">
-            ✨ Digitalisasi Zakat Amanah
+            ✨ Trusted Zakat Digitalization
         </div>
 
         <h1>
-            Transparan, Akurat &<br>
-            Terdokumentasi Amanah
+            Transparent, Accurate &<br>
+            Trusted Documentation
         </h1>
 
         <p class="desc">
-            SADAR membantu pengelolaan zakat fitrah,
-            zakat mal, fidyah, infaq, dan shodaqoh
-            secara digital, transparan, serta mudah
-            digunakan oleh pengurus masjid.
+            SADAR helps mosque administrators
+            manage Zakat al-Fitr, Zakat al-Mal,
+            Fidyah, Infaq, and Sadaqah digitally
+            with transparency and ease of use.
         </p>
 
         <div class="feature-grid">
 
             <div class="feature-card">
-                <h4>Mudah & Praktis</h4>
+                <h4>Easy & Practical</h4>
                 <p>
-                    Pencatatan zakat cepat,
-                    rapi, dan mudah digunakan.
+                    Fast, organized, and user-friendly
+                    zakat recording system.
                 </p>
             </div>
 
             <div class="feature-card">
-                <h4>Kuitansi Instan</h4>
+                <h4>Instant Receipts</h4>
                 <p>
-                    Cetak bukti pembayaran
-                    otomatis secara langsung.
+                    Automatically generate and print
+                    payment receipts instantly.
                 </p>
             </div>
 
         </div>
 
         <div class="footer-left">
-            © SADAR Sistem Zakat
+            © SADAR Zakat Management System
         </div>
 
     </div>
@@ -76,10 +77,10 @@
 
         <div class="login-card">
 
-            <h1>Selamat Datang Kembali</h1>
+            <h1>Welcome Back</h1>
 
             <p class="subtitle">
-                Silakan login untuk mengakses sistem SADAR.
+                Sign in to access the SADAR system.
             </p>
 
             @if(session('status'))
@@ -105,7 +106,7 @@
                         type="email"
                         name="email"
                         value="{{ old('email') }}"
-                        placeholder="contoh@email.com"
+                        placeholder="example@email.com"
                         required
                         autofocus
                     >
@@ -123,7 +124,7 @@
                     <input
                         type="password"
                         name="password"
-                        placeholder="Masukkan password"
+                        placeholder="Enter password"
                         required
                     >
 
@@ -135,14 +136,14 @@
                 </div>
 
                 <button type="submit" class="login-btn">
-                    Masuk Sekarang
+                    Sign In
                 </button>
             </form>
 
             <div class="register-text">
-                Belum punya akun?
+                Don't have an account?
                 <a href="{{ route('register') }}">
-                    Daftar Sekarang
+                    Create Account
                 </a>
             </div>
 

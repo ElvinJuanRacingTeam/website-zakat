@@ -11,6 +11,10 @@ window.pilihJiwa = function (n) {
     document.querySelectorAll(".jiwa-box")
         .forEach(el => el.classList.remove("active"));
 
+    document
+        .querySelector(`.jiwa-box[data-jiwa="${n}"]`)
+        ?.classList.add("active");
+
     document.getElementById("jumlahJiwa").value = n;
 
     hitungTotal();

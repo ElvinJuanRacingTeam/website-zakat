@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Kuitansi Zakat</title>
+    <title>Zakat Payment Receipt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" type="image/png" href="/logo.png">
@@ -239,7 +239,7 @@
         $infaq = $infaq ?? 0;
         $mal = $mal ?? 0;
         $fidya = $fidya ?? 0;
-        $jumlahJiwa = $jumlahJiwa ?? 0;  // hapus count($atas_nama)
+        $jumlahJiwa = $jumlahJiwa ?? 0;
 
         $total = $fitrah + $infaq + $mal + $fidya;
     @endphp
@@ -264,24 +264,24 @@
                 <div class="divider"></div>
 
                 <div class="row">
-                    <div class="label">Nama</div>
+                    <div class="label">Full Name</div>
                     <div class="value">{{ $nama }}</div>
                 </div>
 
                 <div class="row">
-                    <div class="label">Alamat</div>
+                    <div class="label">Address</div>
                     <div class="value">{{ $alamat ?: '-' }}</div>
                 </div>
 
                 <div class="row">
-                    <div class="label">Jumlah Jiwa</div>
-                    <div class="value">{{ $jumlahJiwa }} Jiwa</div>
+                    <div class="label">No. of Persons</div>
+                    <div class="value">{{ $jumlahJiwa }} Person(s)</div>
                 </div>
 
                 <div class="divider"></div>
 
                 <div class="section-title">
-                    Rincian Pembayaran
+                    Payment Details
                 </div>
 
                 @if ($fitrah > 0)
@@ -295,7 +295,7 @@
 
                 @if ($kg > 0)
                     <div class="row">
-                        <div class="label">Beras</div>
+                        <div class="label">Rice (Commodity)</div>
                         <div class="value">
                             {{ $kg }} KG
                         </div>
@@ -322,7 +322,7 @@
 
                 @if ($fidya > 0)
                     <div class="row">
-                        <div class="label">Fidya</div>
+                        <div class="label">Fidyah</div>
                         <div class="value">
                             Rp {{ number_format($fidya, 0, ',', '.') }}
                         </div>
@@ -331,7 +331,7 @@
 
                 <div class="total-box">
                     <div class="total">
-                        <span>TOTAL</span>
+                        <span>GRAND TOTAL</span>
                         <span>
                             Rp {{ number_format($total, 0, ',', '.') }}
                         </span>
@@ -345,7 +345,7 @@
 
                 <div class="signature">
                     <div class="signature-line"></div>
-                    <span>Petugas</span>
+                    <span>Authorized Officer</span>
                 </div>
 
             </div>
@@ -355,14 +355,14 @@
         <div class="doa-card">
 
             <div class="doa-title">
-                Doa Zakat
+                Zakat Supplication (Du'a)
             </div>
 
             <div class="doa-section">
-                <h4>Doa Membayar Zakat Fitrah</h4>
+                <h4>Du'a for Paying Zakat Fitrah</h4>
 
                 <div class="arab">
-                    نَوَيْتُ أَنْ أُخْرِجَ زَكَاةَ الْفِطْرِ عَنْ نَفْسِي فَرْضًا لِلَّهِ تَعَالَى
+                    نَوَيْتُ أَنْ أُخْرِجَ زَكَاةَ الْفِطْرِ عَنْ نَفْسِي فَرْضًا لِلَّهِ تَعَالَى
                 </div>
 
                 <div class="latin">
@@ -371,18 +371,18 @@
                 </div>
 
                 <div class="arti">
-                    “Saya niat mengeluarkan zakat fitrah untuk diri sendiri,
-                    fardu karena Allah Ta'ala.”
+                    "I intend to pay Zakat Fitrah for myself,
+                    as an obligatory act for the sake of Allah the Almighty."
                 </div>
             </div>
 
             <hr>
 
             <div class="doa-section">
-                <h4>Doa Penerimaan Zakat (Amil)</h4>
+                <h4>Du'a for Receiving Zakat (Amil)</h4>
 
                 <div class="arab">
-                    اللَّهُمَّ صَلِّ عَلَيْهِمْ
+                    اللَّهُمَّ صَلِّ عَلَيْهِمْ
                 </div>
 
                 <div class="latin">
@@ -390,7 +390,7 @@
                 </div>
 
                 <div class="arti">
-                    “Ya Allah, limpahkanlah rahmat kepada mereka.”
+                    "O Allah, bestow Your blessings and mercy upon them."
                 </div>
             </div>
 
@@ -400,11 +400,11 @@
 
     <div class="btn-wrap">
         <button class="btn-print" onclick="window.print()">
-            Cetak
+            Print Receipt
         </button>
 
         <button class="btn-back" onclick="window.location.href='{{ route('riwayat') }}'">
-            Kembali
+            Back
         </button>
     </div>
 

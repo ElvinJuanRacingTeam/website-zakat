@@ -1,43 +1,43 @@
 <div class="row g-5">
 
-    <!-- INFORMASI PEMBAYAR -->
+    <!-- PAYER INFORMATION -->
     <div class="col-md-6">
 
-        <div class="section-title">INFORMASI PEMBAYAR</div>
+        <div class="section-title">PAYER INFORMATION</div>
 
         <div class="mb-4">
-            <label class="form-label">Nama Lengkap</label>
+            <label class="form-label">Full Name</label>
             <input name="nama" class="form-control" required>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Alamat</label>
+            <label class="form-label">Address</label>
             <input name="alamat" class="form-control" required>
         </div>
 
         <div class="mb-4">
 
-            <label class="form-label">Jumlah Jiwa</label>
+            <label class="form-label">Number of Family Members</label>
 
             <div class="jiwa-grid">
 
-                <div class="jiwa-box" onclick="pilihJiwa(1)">1 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(2)">2 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(3)">3 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(4)">4 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(5)">5 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(6)">6 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(7)">7 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(8)">8 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(9)">9 Jiwa</div>
-                <div class="jiwa-box" onclick="pilihJiwa(10)">10 Jiwa</div>
+                <div class="jiwa-box" data-jiwa="1" onclick="pilihJiwa(1)">1 Person</div>
+                <div class="jiwa-box" data-jiwa="2" onclick="pilihJiwa(2)">2 People</div>
+                <div class="jiwa-box" data-jiwa="3" onclick="pilihJiwa(3)">3 People</div>
+                <div class="jiwa-box" data-jiwa="4" onclick="pilihJiwa(4)">4 People</div>
+                <div class="jiwa-box" data-jiwa="5" onclick="pilihJiwa(5)">5 People</div>
+                <div class="jiwa-box" data-jiwa="6" onclick="pilihJiwa(6)">6 People</div>
+                <div class="jiwa-box" data-jiwa="7" onclick="pilihJiwa(7)">7 People</div>
+                <div class="jiwa-box" data-jiwa="8" onclick="pilihJiwa(8)">8 People</div>
+                <div class="jiwa-box" data-jiwa="9" onclick="pilihJiwa(9)">9 People</div>
+                <div class="jiwa-box" data-jiwa="10" onclick="pilihJiwa(10)">10 People</div>
 
             </div>
 
             <div class="mt-3">
 
                 <label class="form-label">
-                    Atau Input Manual
+                    Or Enter Manually
                 </label>
 
                 <input
