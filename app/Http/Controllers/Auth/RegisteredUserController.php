@@ -45,9 +45,8 @@ public function store(Request $request): RedirectResponse
 
     event(new Registered($user));
 
-    Auth::login($user);
-
-    return redirect('/');
+    return redirect()->route('login')
+    ->with('success', 'Registration successful. Please log in.');   
 }
 }
 

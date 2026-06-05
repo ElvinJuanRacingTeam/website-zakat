@@ -100,7 +100,7 @@
                 @csrf
 
                 <div class="input-group">
-                    <label>Email</label>
+                    <label>Email atau ID Masjid</label>
 
                     <input
                         type="text"

@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pembayaran;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\DetailPembayaran;
+use Illuminate\Support\Str;
 
 class ZakatController extends Controller
 {
-    public function simpan(Request $request)
-    {
-        $noKwitansi = 'KW-' . date('YmdHis');
+public function simpan(Request $request)
+{
+    DB::transaction(function () use ($request) {
+
+            if (Pembayaran::where('request_id', $request->request_id)->exists()) {
+            throw new \Exception("Duplicate transaction");
+        }
+        $noKwintasi = 'ZKT-' . date('Ymd') . '-' . strtoupper(Str::random(5));
 
         $jumlahJiwa = (int) $request->jumlah_jiwa;
 
@@ -23,38 +31,41 @@ class ZakatController extends Controller
 
         $total = $fitrah + $infaq + $shodaqoh + $mal + $fidya;
 
-        $metode = $request->metode_pembayaran;
+        $metode = $request->metode_pembayaran ?? 'cash';
+
         if ($metode !== 'transfer') {
             $metode = 'cash';
         }
 
-        $data = Pembayaran::create([
+        $pembayaran = Pembayaran::create([
             'user_id' => Auth::id(),
-            'no_kwitansi'       => $noKwitansi,
-            'nama'              => $request->nama,
-            'alamat'            => $request->alamat,
-            'atas_nama'         => json_encode([$jumlahJiwa]),
-            'zakat_fitrah_rp'   => $fitrah,
-            'zakat_fitrah_kg'   => $kg,
-            'zakat_mal'         => $mal,
-            'infaq_shodaqoh'    => $infaq + $shodaqoh,
-            'fidya'             => $fidya,
-            'total'             => $total,
-            'metode_pembayaran' => $metode
-            
+            'no_kwitansi' => $noKwitansi,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'atas_nama' => json_encode([$jumlahJiwa]),
+            'zakat_fitrah_rp' => $fitrah,
+            'zakat_fitrah_kg' => $kg,
+            'zakat_mal' => $mal,
+            'infaq_shodaqoh' => $infaq + $shodaqoh,
+            'fidya' => $fidya,
+            'total' => $total,
+            'metode_pembayaran' => $metode,
         ]);
 
-        return redirect()->route('cetak', $data->id);
-    }
+    });
+
+    return redirect()->route('riwayat');
+}
+  
 
     public function cetak($id)
     {
-       $data = Pembayaran::where('id', $id)
-    ->where('user_id', Auth::id())
-    ->firstOrFail();
+        $data = Pembayaran::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
         $atasNama = [];
 
-        if (!empty($data->atas_nama)) {
+        if (! empty($data->atas_nama)) {
             $decoded = json_decode($data->atas_nama, true);
 
             if (is_array($decoded)) {
@@ -62,19 +73,20 @@ class ZakatController extends Controller
             }
         }
         $jumlahJiwa = $atasNama[0] ?? 0;
+
         return view('cetak', [
-            'nama'       => $data->nama,
-            'alamat'     => $data->alamat,
-            'fitrah'     => $data->zakat_fitrah_rp,
-            'kg'         => $data->zakat_fitrah_kg,
-            'mal'        => $data->zakat_mal,
-            'infaq'      => $data->infaq_shodaqoh,
-            'shodaqoh'   => 0,
-            'fidya'      => $data->fidya,
-            'atas_nama'  => $atasNama,
+            'nama' => $data->nama,
+            'alamat' => $data->alamat,
+            'fitrah' => $data->zakat_fitrah_rp,
+            'kg' => $data->zakat_fitrah_kg,
+            'mal' => $data->zakat_mal,
+            'infaq' => $data->infaq_shodaqoh,
+            'shodaqoh' => 0,
+            'fidya' => $data->fidya,
+            'atas_nama' => $atasNama,
             'jumlahJiwa' => $jumlahJiwa,
-            'metode'     => $data->metode_pembayaran ?? 'cash'
-            
+            'metode' => $data->metode_pembayaran ?? 'cash',
+
         ]);
     }
 
@@ -169,8 +181,8 @@ class ZakatController extends Controller
     public function edit($id)
     {
         $data = Pembayaran::where('id', $id)
-    ->where('user_id', Auth::id())
-    ->firstOrFail();
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
         $atasNama = json_decode($data->atas_nama, true);
 
         return view('edit', compact(
@@ -182,8 +194,9 @@ class ZakatController extends Controller
     public function update(Request $request, $id)
     {
         $data = Pembayaran::where('id', $id)
-    ->where('user_id', Auth::id())
-    ->firstOrFail();
+            ->where('user_id', Auth::id())
+            ->lockForUpdate()
+            ->firstOrFail();
 
         $atasNamaArray = $request->atas_nama ?? [];
         $atasNamaClean = array_filter($atasNamaArray);
@@ -205,16 +218,16 @@ class ZakatController extends Controller
         }
 
         $data->update([
-            'nama'               => $request->nama,
-            'alamat'             => $request->alamat,
-            'atas_nama'          => $atasNamaJson,
-            'zakat_fitrah_rp'    => $fitrah,
-            'zakat_fitrah_kg'    => $kg,
-            'zakat_mal'          => $mal,
-            'infaq_shodaqoh'     => $infaq + $shodaqoh,
-            'fidya'              => $fidya,
-            'total'              => $total,
-            'metode_pembayaran'  => $metode
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'atas_nama' => $atasNamaJson,
+            'zakat_fitrah_rp' => $fitrah,
+            'zakat_fitrah_kg' => $kg,
+            'zakat_mal' => $mal,
+            'infaq_shodaqoh' => $infaq + $shodaqoh,
+            'fidya' => $fidya,
+            'total' => $total,
+            'metode_pembayaran' => $metode,
         ]);
 
         return redirect()->route('riwayat');
@@ -223,8 +236,8 @@ class ZakatController extends Controller
     public function hapus($id)
     {
         $data = Pembayaran::where('id', $id)
-    ->where('user_id', Auth::id())
-    ->firstOrFail();
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
         $data->delete();
 
         return redirect()->route('riwayat');
