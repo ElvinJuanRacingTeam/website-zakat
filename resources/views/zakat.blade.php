@@ -16,7 +16,7 @@
 
 <body>
 
-    @include('Pages.navbar')
+    @include('Pages.Navbar')
 
     <div class="container py-5">
         <div class="form-card">
@@ -32,7 +32,7 @@
             <form method="POST" action="{{ route('simpan') }}">
                 @csrf
 
-                @include('Layouts.input')
+                @include('Layouts.Input')
                 @include('Layouts.RincianPembayaran')
 
                 <div class="mt-4 text-end">

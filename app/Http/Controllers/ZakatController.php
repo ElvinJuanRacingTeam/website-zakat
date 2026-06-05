@@ -15,48 +15,56 @@ public function simpan(Request $request)
 {
     DB::transaction(function () use ($request) {
 
-            if (Pembayaran::where('request_id', $request->request_id)->exists()) {
-            throw new \Exception("Duplicate transaction");
+        try {
+
+            $noKwintasi = 'ZKT-' . date('Ymd') . '-' . strtoupper(Str::random(5));
+
+            $jumlahJiwa = (int) $request->jumlah_jiwa;
+
+            $fitrah = (int) str_replace('.', '', $request->fitrah ?? 0);
+            $kg = (float) ($request->kg ?? 0);
+            $mal = (int) str_replace('.', '', $request->mal ?? 0);
+            $infaq = (int) str_replace('.', '', $request->infaq ?? 0);
+            $shodaqoh = (int) str_replace('.', '', $request->shodaqoh ?? 0);
+            $fidya = (int) str_replace('.', '', $request->fidya ?? 0);
+
+            $total = $fitrah + $infaq + $shodaqoh + $mal + $fidya;
+
+            $metode = $request->metode_pembayaran ?? 'cash';
+
+            if ($metode !== 'transfer') {
+                $metode = 'cash';
+            }
+
+            Pembayaran::create([
+                'user_id' => Auth::id(),
+                'no_kwitansi' => $noKwintasi,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'atas_nama' => json_encode([$jumlahJiwa]),
+                'zakat_fitrah_rp' => $fitrah,
+                'zakat_fitrah_kg' => $kg,
+                'zakat_mal' => $mal,
+                'infaq_shodaqoh' => $infaq + $shodaqoh,
+                'fidya' => $fidya,
+                'total' => $total,
+                'metode_pembayaran' => $metode,
+            ]);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+
+            // kalau duplicate request_id
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->with('error', 'Duplicate transaction detected');
+            }
+
+            throw $e;
         }
-        $noKwintasi = 'ZKT-' . date('Ymd') . '-' . strtoupper(Str::random(5));
-
-        $jumlahJiwa = (int) $request->jumlah_jiwa;
-
-        $fitrah = (int) str_replace('.', '', $request->fitrah ?? 0);
-        $kg = (float) ($request->kg ?? 0);
-        $mal = (int) str_replace('.', '', $request->mal ?? 0);
-        $infaq = (int) str_replace('.', '', $request->infaq ?? 0);
-        $shodaqoh = (int) str_replace('.', '', $request->shodaqoh ?? 0);
-        $fidya = (int) str_replace('.', '', $request->fidya ?? 0);
-
-        $total = $fitrah + $infaq + $shodaqoh + $mal + $fidya;
-
-        $metode = $request->metode_pembayaran ?? 'cash';
-
-        if ($metode !== 'transfer') {
-            $metode = 'cash';
-        }
-
-        $pembayaran = Pembayaran::create([
-            'user_id' => Auth::id(),
-            'no_kwitansi' => $noKwitansi,
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'atas_nama' => json_encode([$jumlahJiwa]),
-            'zakat_fitrah_rp' => $fitrah,
-            'zakat_fitrah_kg' => $kg,
-            'zakat_mal' => $mal,
-            'infaq_shodaqoh' => $infaq + $shodaqoh,
-            'fidya' => $fidya,
-            'total' => $total,
-            'metode_pembayaran' => $metode,
-        ]);
 
     });
 
     return redirect()->route('riwayat');
 }
-  
 
     public function cetak($id)
     {

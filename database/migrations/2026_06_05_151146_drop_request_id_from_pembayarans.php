@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('pembayarans', function (Blueprint $table) {
-            //
-        });
-    }
+public function up(): void
+{
+    Schema::table('pembayarans', function (Blueprint $table) {
+        $table->dropColumn('request_id');
+    });
+}
 
     /**
      * Reverse the migrations.
