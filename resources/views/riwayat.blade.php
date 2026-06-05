@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/riwayat.css') }}">
     <link rel="icon" type="image/png" href="/logo.png">
 
     @vite('resources/css/riwayat.css')
@@ -39,13 +37,49 @@
             </div>
 
             <div class="row mb-4">
+                {{-- IMPORT EXCEL --}}
+                <div class="row mb-3">
+                    <div class="col-md-6">
 
+                        @if (session('success'))
+                            <div class="alert alert-success py-2">{{ session('success') }}</div>
+                        @endif
+                        @if (session('warning'))
+                            <div class="alert alert-warning">
+                                {{ session('warning') }}
+                            </div>
+                        @endif
+
+                        @if (session('import_errors'))
+                            <div class="alert alert-danger">
+                                <strong>Detail Error:</strong>
+                                <ul class="mb-0">
+                                    @foreach (session('import_errors') as $err)
+                                        <li>{{ $err }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data"
+                            class="d-flex gap-2 align-items-center">
+                            @csrf
+                            <input type="file" name="excel" accept=".csv" class="form-control form-control-sm"
+                                required>
+                            <button type="submit" class="btn btn-sm btn-success text-nowrap">
+                                📥 Import Excel
+                            </button>
+                        </form>
+
+                        <small class="text-muted mt-1 d-block">
+                            Kolom: <code>nama, alamat, jumlah_jiwa, fitrah, kg, mal, infaq, shodaqoh, fidya,
+                                metode_pembayaran</code>
+                        </small>
+
+                    </div>
+                </div>
                 <div class="col-md-4">
 
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="form-control search-box"
+                    <input type="text" id="searchInput" class="form-control search-box"
                         placeholder="Search by name...">
 
                 </div>
@@ -153,8 +187,7 @@
                                             Edit
                                         </a>
 
-                                        <form action="{{ route('hapus', $item->id) }}"
-                                            method="POST"
+                                        <form action="{{ route('hapus', $item->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this record?')">
 
                                             @csrf

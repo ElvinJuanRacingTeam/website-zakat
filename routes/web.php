@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ZakatController;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImportController;
 /*
 |--------------------------------------------------------------------------
 | HALAMAN ZAKAT
@@ -13,6 +13,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('zakat');
     })->name('zakat');
+
+    Route::post('/import-excel', [ImportController::class, 'import'])
+        ->name('import.excel');
+
+    Route::get('/export-excel', [ImportController::class, 'export'])
+        ->name('export.excel');
 
     Route::post('/simpan', [ZakatController::class, 'simpan'])
         ->name('simpan');

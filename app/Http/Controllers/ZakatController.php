@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\DetailPembayaran;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;    
+use App\Imports\PembayaranImport;     
 
 class ZakatController extends Controller
 {
@@ -66,6 +68,50 @@ public function simpan(Request $request)
     return redirect()->route('riwayat');
 }
 
+public function importCsv(Request $request)
+{
+    $request->validate([
+        'csv' => 'required|mimes:csv,txt'
+    ]);
+
+    $file = fopen($request->file('csv')->getRealPath(), 'r');
+
+    $header = fgetcsv($file);
+
+    while (($row = fgetcsv($file)) !== false) {
+
+        $data = array_combine($header, $row);
+
+        Pembayaran::create([
+            'user_id' => Auth::id(),
+            'request_id' => Str::uuid(),
+            'no_kwitansi' => 'CSV-' . strtoupper(Str::random(8)),
+            'nama' => $data['nama'],
+            'alamat' => $data['alamat'],
+            'atas_nama' => json_encode([
+                $data['jumlah_jiwa']
+            ]),
+            'zakat_fitrah_rp' => $data['fitrah'],
+            'zakat_mal' => $data['mal'],
+            'infaq_shodaqoh' => $data['infaq'],
+            'fidya' => $data['fidya'],
+            'total' =>
+                $data['fitrah']
+                + $data['mal']
+                + $data['infaq']
+                + $data['fidya'],
+            'metode_pembayaran' =>
+                $data['metode_pembayaran']
+        ]);
+    }
+
+    fclose($file);
+
+    return back()->with(
+        'success',
+        'CSV berhasil diimport'
+    );
+}
     public function cetak($id)
     {
         $data = Pembayaran::where('id', $id)
