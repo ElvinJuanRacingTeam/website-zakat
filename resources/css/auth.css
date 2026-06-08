@@ -107,15 +107,15 @@ body{
 
     margin-bottom:35px;
 }
-
+s
 .logo-box{
-    width:84px;
-    height:84px;
+    width:70px;
+    height:70px;
 
     border-radius:24px;
 
     background:rgba(255,255,255,.15);
-
+    padding:4px;
     display:flex;
     justify-content:center;
     align-items:center;

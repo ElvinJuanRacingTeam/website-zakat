@@ -1,11 +1,11 @@
 <nav class="navbar-custom d-flex align-items-center">
 
     <div class="brand-wrapper">
-        <img src="{{ asset('logo.png') }}" class="brand-logo">
+        <img src="{{ asset('logo.png') }}" class="brand-logo" >
 
         <div>
             <div class="brand-title">SADAR</div>
-            <div class="brand-sub">Sistem Data Zakat Warga</div>
+            <div class="brand-sub">Smart Alms Data Administration & Reporting</div>
         </div>
     </div>
 

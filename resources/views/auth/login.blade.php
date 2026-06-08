@@ -25,7 +25,7 @@
 
             <div>
                 <h2>SADAR</h2>
-                <p>Community Zakat Management System</p>
+                <p>Smart Alms Data Administration & Reporting</p>
             </div>
 
         </div>
