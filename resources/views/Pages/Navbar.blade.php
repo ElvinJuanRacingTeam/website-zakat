@@ -1,7 +1,7 @@
 <nav class="navbar-custom d-flex align-items-center">
 
     <div class="brand-wrapper">
-        <img src="{{ asset('logo.png') }}" class="brand-logo" >
+        <img src="{{ asset('log0.png') }}" class="brand-logo" >
 
         <div>
             <div class="brand-title">SADAR</div>

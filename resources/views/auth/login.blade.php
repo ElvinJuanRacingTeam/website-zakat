@@ -6,7 +6,7 @@
     <title>Login - SADAR</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('log0.png') }}">
 
     @vite('resources/css/auth.css')
 </head>
@@ -20,7 +20,7 @@
         <div class="brand">
 
             <div class="logo-box">
-                <img src="{{ asset('logo.png') }}" alt="Logo">
+                <img src="{{ asset('log0.png') }}" alt="Logo">
             </div>
 
             <div>

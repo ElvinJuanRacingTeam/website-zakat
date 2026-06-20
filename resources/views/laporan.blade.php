@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="icon" type="image/png" href="/log0.png">
 
     @vite('resources/css/laporan.css')
 </head>
@@ -413,7 +413,7 @@
 
         <div class="print-header">
 
-            <img src="{{ asset('logo.png') }}"
+            <img src="{{ asset('log0.png') }}"
                 class="print-logo">
 
             <div>

@@ -6,7 +6,7 @@
     <title>Zakat Payment Receipt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="icon" type="image/png" href="/log0.png">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap');
@@ -250,7 +250,7 @@
 
             <div class="receipt">
 
-                <img src="{{ asset('logo.png') }}" class="logo">
+                <img src="{{ asset('log0.png') }}" class="logo">
 
                 <div class="title">
                     MASJID NURUL HIKMAH
