@@ -15,7 +15,7 @@ class ZakatController extends Controller
 {
 public function simpan(Request $request)
 {
-    DB::transaction(function () use ($request) {
+    $pembayaran = DB::transaction(function () use ($request) {
 
         try {
 
@@ -38,7 +38,7 @@ public function simpan(Request $request)
                 $metode = 'cash';
             }
 
-            Pembayaran::create([
+            return Pembayaran::create([
                 'user_id' => Auth::id(),
                 'no_kwitansi' => $noKwintasi,
                 'nama' => $request->nama,
@@ -65,7 +65,9 @@ public function simpan(Request $request)
 
     });
 
-    return redirect()->route('riwayat');
+    return redirect()->route('cetak',[
+        'id' => $pembayaran->id
+    ]);
 }
 
 public function importCsv(Request $request)
