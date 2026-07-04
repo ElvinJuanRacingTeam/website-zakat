@@ -440,3 +440,12 @@ PRINT
         font-size: 12px;
     }
 }
+/* Kolom Date */
+.table-modern th:last-child,
+.table-modern td:last-child {
+    min-width: 110px;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    text-align: center;
+}

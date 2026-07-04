@@ -208,57 +208,75 @@
 
             <div class="summary-grid mb-4">
 
-                <div class="summary-card">
-                    <div class="summary-title">
-                        Total Transactions
-                    </div>
+            <a href="{{ route('laporan') }}"
+            class="summary-card text-decoration-none text-dark">
 
-                    <div class="summary-value">
-                        {{ $data->count() }}
-                    </div>
+                <div class="summary-title">
+                    Total Transactions
                 </div>
 
-                <div class="summary-card">
-                    <div class="summary-title">
-                        Zakat Fitrah (Monetary)
-                    </div>
-
-                    <div class="summary-value">
-                        Rp {{ number_format($totalFitrah, 0, ',', '.') }}
-                    </div>
+                <div class="summary-value">
+                    {{ $data->count() }}
                 </div>
 
-                <div class="summary-card">
-                    <div class="summary-title">
-                        Zakat Fitrah (Rice Commodity)
-                    </div>
+            </a>
 
-                    <div class="summary-value">
-                        {{ number_format($totalBeras, 2) }} Kg
-                    </div>
+            <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'fitrah_rp'])) }}"
+            class="summary-card text-decoration-none text-dark">
+
+                <div class="summary-title">
+                    Zakat Fitrah (Monetary)
                 </div>
 
-                <div class="summary-card">
-                    <div class="summary-title">
-                        Infaq (Voluntary Donation)
-                    </div>
-
-                    <div class="summary-value">
-                        Rp {{ number_format($totalInfaq, 0, ',', '.') }}
-                    </div>
+                <div class="summary-value">
+                    Rp {{ number_format($totalFitrah, 0, ',', '.') }}
                 </div>
 
-                <div class="summary-card">
+            </a>
+
+        <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'fitrah_kg'])) }}"
+        class="summary-card text-decoration-none text-dark">
+
+            <div class="summary-title">
+                Zakat Fitrah (Rice)
+            </div>
+
+            <div class="summary-value">
+                {{ number_format($totalBeras, 2, ',', '.') }} Kg
+            </div>
+
+        </a>
+
+
+            <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'infaq'])) }}"
+            class="summary-card text-decoration-none text-dark">
+
+                <div class="summary-title">
+                    Infaq
+                </div>
+
+                <div class="summary-value">
+                    Rp {{ number_format($totalInfaq, 0, ',', '.') }}
+                </div>
+
+            </a>
+
+                <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'mal'])) }}"
+                class="summary-card text-decoration-none text-dark">
+
                     <div class="summary-title">
-                        Zakat Mal (Wealth Tax)
+                        Zakat Mal
                     </div>
 
                     <div class="summary-value">
                         Rp {{ number_format($totalMal, 0, ',', '.') }}
                     </div>
-                </div>
 
-                <div class="summary-card">
+                </a>
+
+                <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'fidya'])) }}"
+                class="summary-card text-decoration-none text-dark">
+
                     <div class="summary-title">
                         Fidyah (Fasting Redemption)
                     </div>
@@ -266,9 +284,12 @@
                     <div class="summary-value">
                         Rp {{ number_format($totalFidya, 0, ',', '.') }}
                     </div>
-                </div>
 
-                <div class="summary-card">
+                </a>
+
+                <a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'cash'])) }}"
+                class="summary-card text-decoration-none text-dark">
+
                     <div class="summary-title">
                         Cash Payment
                     </div>
@@ -276,17 +297,21 @@
                     <div class="summary-value">
                         Rp {{ number_format($totalCash, 0, ',', '.') }}
                     </div>
-                </div>
 
-                <div class="summary-card">
-                    <div class="summary-title">
-                        Bank Transfer Payment
-                    </div>
+                </a>
 
-                    <div class="summary-value">
-                        Rp {{ number_format($totalTransfer, 0, ',', '.') }}
-                    </div>
-                </div>
+<a href="{{ route('laporan', array_merge(request()->query(), ['kategori' => 'transfer'])) }}"
+   class="summary-card text-decoration-none text-dark">
+
+    <div class="summary-title">
+        Bank Transfer Payment
+    </div>
+
+    <div class="summary-value">
+        Rp {{ number_format($totalTransfer, 0, ',', '.') }}
+    </div>
+
+</a>
 
             </div>
 
@@ -317,7 +342,7 @@
                             <th>Fidyah</th>
                             <th>Total Amount</th>
                             <th>Payment Method</th>
-                            <th>Transaction Date</th>
+                            <th> Date</th>
                         </tr>
                     </thead>
 

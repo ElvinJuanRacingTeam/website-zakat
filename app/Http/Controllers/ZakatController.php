@@ -65,8 +65,8 @@ class ZakatController extends Controller
                 'nama' => $data['nama'],
                 'alamat' => $data['alamat'] ?? '-',
                 'jumlah_jiwa' => (int) ($data['jumlah_jiwa'] ?? 1),
-                'zakat_fitrah_rp' => (int) ($data['fitrah'] ?? 0),
-                'zakat_mal' => (int) ($data['mal'] ?? 0),
+                'zakat_fitrah_rp' => (int) ($data['fitrah'] ?? 0),  
+                'zakat_mal' => (int) ($data['mal'] ?? 0),   
                 'jumlah_jiwa' => $data['jumlah_jiwa'],
                 'infaq_shodaqoh' => (int) ($data['infaq'] ?? 0),
                 'fidya' => (int) ($data['fidya'] ?? 0),
@@ -116,32 +116,72 @@ class ZakatController extends Controller
     }
 
     public function laporan(Request $request)
-    {
-        $query = Pembayaran::where('user_id', Auth::id());
+{
+    $query = Pembayaran::where('user_id', Auth::id());
 
-        if ($request->tahun) $query->whereYear('created_at', $request->tahun);
-        if ($request->metode) $query->where('metode_pembayaran', $request->metode);
-        if ($request->tanggal) $query->whereDate('created_at', $request->tanggal);
-
-        $data = $query->orderBy('created_at', $request->sort ?? 'desc')->get();
-
-        if ($request->no_dari || $request->no_sampai) {
-            $mulai = max(1, (int) $request->no_dari);
-            $akhir = (int) ($request->no_sampai ?? count($data));
-            $data = $data->slice($mulai - 1, ($akhir - $mulai) + 1)->values();
-        }
-
-        return view('laporan', [
-            'data' => $data,
-            'tahunList' => Pembayaran::selectRaw('YEAR(created_at) as tahun')->distinct()->pluck('tahun'),
-            'tahun' => $request->tahun,
-            'metode' => $request->metode,
-            'tanggal' => $request->tanggal,
-            'sort' => $request->sort,
-            'no_dari' => $request->no_dari,
-            'no_sampai' => $request->no_sampai
-        ]);
+    if ($request->tahun) {
+        $query->whereYear('created_at', $request->tahun);
     }
+
+    if ($request->metode) {
+        $query->where('metode_pembayaran', $request->metode);
+    }
+
+    if ($request->tanggal) {
+        $query->whereDate('created_at', $request->tanggal);
+    }
+
+    // Tambahkan di sini
+    switch ($request->kategori) {
+
+        case 'fitrah_rp':
+            $query->where('zakat_fitrah_rp', '>', 0);
+            break;
+
+        case 'fitrah_kg':
+            $query->where('zakat_fitrah_kg', '>', 0);
+            break;
+
+        case 'mal':
+            $query->where('zakat_mal', '>', 0);
+            break;
+
+        case 'infaq':
+            $query->where('infaq_shodaqoh', '>', 0);
+            break;
+
+        case 'fidya':
+            $query->where('fidya', '>', 0);
+            break;
+
+        case 'cash':
+            $query->where('metode_pembayaran', 'cash');
+            break;
+
+        case 'transfer':
+            $query->where('metode_pembayaran', 'transfer');
+            break;
+    }
+
+    $data = $query->orderBy('created_at', $request->sort ?? 'desc')->get();
+
+    if ($request->no_dari || $request->no_sampai) {
+        $mulai = max(1, (int) $request->no_dari);
+        $akhir = (int) ($request->no_sampai ?? count($data));
+        $data = $data->slice($mulai - 1, ($akhir - $mulai) + 1)->values();
+    }
+
+    return view('laporan', [
+        'data' => $data,
+        'tahunList' => Pembayaran::selectRaw('YEAR(created_at) as tahun')->distinct()->pluck('tahun'),
+        'tahun' => $request->tahun,
+        'metode' => $request->metode,
+        'tanggal' => $request->tanggal,
+        'sort' => $request->sort,
+        'no_dari' => $request->no_dari,
+        'no_sampai' => $request->no_sampai
+    ]);
+}
 
     public function edit($id)
     {
