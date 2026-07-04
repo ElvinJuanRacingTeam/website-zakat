@@ -9,225 +9,254 @@
     <link rel="icon" type="image/png" href="/log0.png">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap');
+        body{
+    font-family: Arial, sans-serif;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        body {
-            background: #eceff3;
-            font-family: 'Inter', sans-serif;
-            padding: 20px;
-        }
+body{
+    background:#eceff3;
+    font-family:Arial, Helvetica, sans-serif;
+    padding:20px;
+    color:#000;
+}
 
-        .wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+.wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:30px;
+    flex-wrap:wrap;
+}
 
-        /* RP58 WIDTH */
-        .receipt {
-            width: 220px;
-            background: #fff;
-            padding: 14px;
-            border-radius: 18px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
-            color: #111827;
-        }
+/* ================= RECEIPT ================= */
 
-        .logo {
-            width: 44px;
-            display: block;
-            margin: 0 auto 8px;
-        }
+.receipt{
+    width:58mm;
+    min-width:58mm;
+    max-width:58mm;
+    background:#fff;
+    padding:3mm;
+    color:#000;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
 
-        .title {
-            text-align: center;
-            font-size: 16px;
-            font-weight: 800;
-            line-height: 1.2;
-        }
+.logo{
+    width:32px;
+    display:block;
+    margin:0 auto 6px;
+}
 
-        .subtitle {
-            text-align: center;
-            font-size: 10px;
-            font-weight: 700;
-            line-height: 1.5;
-            color: #4b5563;
-            margin-top: 6px;
-        }
+.title{
+    text-align:center;
+    font-size:16px;
+    font-weight:900;
+    line-height:1.2;
+}
 
-        .divider {
-            border-top: 1px dashed #bdbdbd;
-            margin: 12px 0;
-        }
+.subtitle{
+    text-align:center;
+    font-size:10px;
+    font-weight:700;
+    line-height:1.4;
+    margin-top:5px;
+}
 
-        .section-title {
-            font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+.divider{
+    border-top:1px dashed #000;
+    margin:10px 0;
+}
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
+.section-title{
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:8px;
+}
 
-        .label {
-            width: 82px;
-            font-size: 10px;
-            font-weight: 800;
-            color: #374151;
-        }
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:4px;
+    margin-bottom:6px;
+}
 
-        .value {
-            flex: 1;
-            text-align: right;
-            font-size: 10px;
-            font-weight: 800;
-            word-break: break-word;
-        }
+.label{
+    width:72px;
+    font-size:10px;
+    font-weight:900;
+    color:#000;
+}
 
-        .total-box {
-            border-top: 2px solid #d1d5db;
-            border-bottom: 2px solid #d1d5db;
-            padding: 8px 0;
-            margin-top: 10px;
-        }
+.value{
+    flex:1;
+    text-align:right;
+    font-size:10px;
+    font-weight:900;
+    color:#000;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+}
 
-        .total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            font-weight: 800;
-        }
+.total-box{
+    border-top:2px solid #000;
+    border-bottom:2px solid #000;
+    padding:6px 0;
+    margin-top:8px;
+}
 
-        .date {
-            text-align: center;
-            font-size: 10px;
-            font-weight: 800;
-            margin-top: 18px;
-        }
+.total{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    font-weight:900;
+}
 
-        .signature {
-            margin-top: 42px;
-            text-align: center;
-        }
+.date{
+    text-align:center;
+    font-size:10px;
+    font-weight:900;
+    margin-top:16px;
+}
 
-        .signature-line {
-            width: 110px;
-            border-top: 1px solid #000;
-            margin: 0 auto 6px;
-        }
+.signature{
+    margin-top:32px;
+    text-align:center;
+}
 
-        .signature span {
-            font-size: 10px;
-            font-weight: 800;
-        }
+.signature-line{
+    width:90px;
+    border-top:1px solid #000;
+    margin:0 auto 5px;
+}
 
-        .doa-card {
-            width: 580px;
-            background: #fff;
-            border-radius: 22px;
-            padding: 28px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
-        }
+.signature span{
+    font-size:10px;
+    font-weight:900;
+}
 
-        .doa-title {
-            text-align: center;
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 24px;
-        }
+/* ================= DOA ================= */
 
-        .doa-section {
-            margin-bottom: 28px;
-        }
+.doa-card{
+    width:580px;
+    background:#fff;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
 
-        .doa-section h4 {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
+.doa-title{
+    text-align:center;
+    font-size:26px;
+    font-weight:800;
+    margin-bottom:24px;
+}
 
-        .arab {
-            font-size: 30px;
-            line-height: 2;
-            text-align: right;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+.doa-section{
+    margin-bottom:28px;
+}
 
-        .latin {
-            font-style: italic;
-            font-weight: 700;
-            color: #4b5563;
-            margin-bottom: 10px;
-        }
+.doa-section h4{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
+}
 
-        .arti {
-            font-weight: 700;
-            line-height: 1.7;
-        }
+.arab{
+    font-size:30px;
+    line-height:2;
+    text-align:right;
+    font-weight:700;
+    margin-bottom:10px;
+}
 
-        .btn-wrap {
-            margin-top: 24px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
+.latin{
+    font-style:italic;
+    font-weight:700;
+    color:#4b5563;
+    margin-bottom:10px;
+}
 
-        button {
-            border: none;
-            border-radius: 14px;
-            padding: 12px 22px;
-            cursor: pointer;
-            font-weight: 800;
-        }
+.arti{
+    font-weight:700;
+    line-height:1.7;
+}
 
-        .btn-print {
-            background: #16a34a;
-            color: #fff;
-        }
+/* ================= BUTTON ================= */
 
-        .btn-back {
-            background: #e5e7eb;
-        }
+.btn-wrap{
+    margin-top:24px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+}
 
-        @page {
-            size: 58mm auto;
-            margin: 0;
-        }
+button{
+    border:none;
+    border-radius:14px;
+    padding:12px 22px;
+    cursor:pointer;
+    font-weight:800;
+}
 
-        @media print {
+.btn-print{
+    background:#16a34a;
+    color:#fff;
+}
 
-            body {
-                background: #fff;
-                padding: 0;
-            }
+.btn-back{
+    background:#e5e7eb;
+}
 
-            .doa-card,
-            .btn-wrap {
-                display: none !important;
-            }
+/* ================= PRINT ================= */
 
-            .receipt {
-                width: 58mm;
-                border-radius: 0;
-                box-shadow: none;
-                padding: 6px;
-            }
-        }
+@page{
+    size:58mm auto;
+    margin:0;
+}
+
+@media print{
+
+    html,
+    body{
+        width:58mm;
+        margin:0;
+        padding:0;
+        background:#fff;
+        color:#000;
+    }
+
+    .wrapper{
+        display:block;
+    }
+
+    .doa-card,
+    .btn-wrap{
+        display:none !important;
+    }
+
+    .receipt{
+        width:58mm;
+        min-width:58mm;
+        max-width:58mm;
+        margin:0;
+        padding:3mm;
+        border-radius:0;
+        box-shadow:none;
+    }
+
+    *{
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
+}
     </style>
 </head>
 
