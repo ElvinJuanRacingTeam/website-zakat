@@ -43,7 +43,7 @@ public function simpan(Request $request)
                 'no_kwitansi' => $noKwintasi,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
-                'atas_nama' => json_encode([$jumlahJiwa]),
+                'jumlahjiwa' => $jumlahJiwa,
                 'zakat_fitrah_rp' => $fitrah,
                 'zakat_fitrah_kg' => $kg,
                 'zakat_mal' => $mal,
@@ -90,9 +90,6 @@ public function importCsv(Request $request)
             'no_kwitansi' => 'CSV-' . strtoupper(Str::random(8)),
             'nama' => $data['nama'],
             'alamat' => $data['alamat'],
-            'atas_nama' => json_encode([
-                $data['jumlah_jiwa']
-            ]),
             'zakat_fitrah_rp' => $data['fitrah'],
             'zakat_mal' => $data['mal'],
             'infaq_shodaqoh' => $data['infaq'],
@@ -128,7 +125,7 @@ public function importCsv(Request $request)
                 $atasNama = $decoded;
             }
         }
-        $jumlahJiwa = $atasNama[0] ?? 0;
+        $jumlahJiwa = $data->jumlah_jiwa;
 
         return view('cetak', [
             'nama' => $data->nama,
@@ -139,7 +136,6 @@ public function importCsv(Request $request)
             'infaq' => $data->infaq_shodaqoh,
             'shodaqoh' => 0,
             'fidya' => $data->fidya,
-            'atas_nama' => $atasNama,
             'jumlahJiwa' => $jumlahJiwa,
             'metode' => $data->metode_pembayaran ?? 'cash',
 
@@ -276,7 +272,7 @@ public function importCsv(Request $request)
         $data->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'atas_nama' => $atasNamaJson,
+            'jumlahjiwa' => $request->jumlah_jiwa,
             'zakat_fitrah_rp' => $fitrah,
             'zakat_fitrah_kg' => $kg,
             'zakat_mal' => $mal,
