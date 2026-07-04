@@ -15,6 +15,7 @@ class Pembayaran extends Model
         'nama',
         'alamat',
         'atas_nama',
+        'jumlah_jiwa',       
         'zakat_fitrah_rp',
         'zakat_fitrah_kg',
         'zakat_mal',
