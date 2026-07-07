@@ -1,126 +1,261 @@
-
 @page{
-size:58mm auto;
-margin:0;
+    size:58mm auto;
+    margin:0;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    background:#eceff3;
+    font-family:"Courier New", monospace;
+    color:#000;
 }
 
 body{
-margin:0;
-padding:0;
-background:#f4f4f4;
-font-family:"Courier New", monospace;
-font-size:12px;
-display:flex;
-flex-direction:column;
-align-items:center;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:20px;
 }
 
-.paper{
-width:56mm;
-background:#fff;
-padding:4mm 3mm;
-box-sizing:border-box;
-margin-top:20px;
-box-shadow:0 0 8px rgba(0,0,0,0.15);
+.wrapper{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+    flex-wrap:wrap;
 }
 
-.center{
-text-align:center;
+/* ================= RECEIPT ================= */
+
+.receipt{
+    width:58mm;
+    background:#fff;
+    padding:2.5mm;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
-.bold{
-font-weight:bold;
-}
+/* ================= HEADER ================= */
 
 .logo{
-width:34px;
-display:block;
-margin:0 auto 4px auto;
+    width:30px;
+    display:block;
+    margin:0 auto 4px;
 }
 
 .title{
-font-size:13px;
-font-weight:bold;
-text-align:center;
+    text-align:center;
+    font-size:19px;
+    font-weight:900;
+    line-height:1.05;
+    margin-bottom:4px;
 }
 
 .subtitle{
-font-size:10px;
-text-align:center;
-line-height:1.3;
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    line-height:1.3;
 }
 
-.line{
-border-top:1px dashed #000;
-margin:6px 0;
+.divider{
+    border-top:1px dashed #000;
+    margin:8px 0;
 }
+
+/* ================= SECTION ================= */
+
+.section-title{
+    font-size:13px;
+    font-weight:900;
+    margin-bottom:6px;
+}
+
+/* ================= ROW ================= */
 
 .row{
-display:flex;
-justify-content:space-between;
-margin:2px 0;
+    display:grid;
+    grid-template-columns:72px 8px 1fr;
+    align-items:start;
+    column-gap:4px;
+    margin:4px 0;
 }
 
 .label{
-width:60%;
+    font-size:12px;
+    font-weight:700;
+    white-space:normal;
+}
+
+.separator{
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
 }
 
 .value{
-width:40%;
-text-align:right;
+    font-size:12px;
+    font-weight:700;
+    text-align:right;
+    word-break:break-word;
+}
+
+/* ================= TOTAL ================= */
+
+.total-box{
+    border-top:2px solid #000;
+    border-bottom:2px solid #000;
+    margin-top:8px;
+    padding:6px 0;
 }
 
 .total{
-border-top:1px solid #000;
-border-bottom:1px solid #000;
-margin-top:6px;
-padding:3px 0;
-font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    font-weight:900;
 }
+
+/* ================= DATE ================= */
+
+.date{
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    margin-top:18px;
+}
+
+/* ================= SIGNATURE ================= */
 
 .signature{
-margin-top:22px;
-text-align:center;
-font-size:10px;
+    margin-top:30px;
+    text-align:center;
 }
 
-.control-box{
-margin-top:20px;
-display:flex;
-gap:10px;
+.signature-line{
+    width:80px;
+    border-top:1px solid #000;
+    margin:0 auto 5px;
+}
+
+.signature span{
+    font-size:11px;
+    font-weight:700;
+}
+
+/* ================= DOA ================= */
+
+.doa-card{
+    width:580px;
+    background:#fff;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.doa-title{
+    text-align:center;
+    font-size:26px;
+    font-weight:800;
+    margin-bottom:24px;
+}
+
+.doa-section{
+    margin-bottom:28px;
+}
+
+.doa-section h4{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.arab{
+    font-size:30px;
+    text-align:right;
+    line-height:2;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.latin{
+    font-style:italic;
+    font-weight:700;
+    color:#555;
+    margin-bottom:10px;
+}
+
+.arti{
+    font-weight:700;
+    line-height:1.7;
+}
+
+/* ================= BUTTON ================= */
+
+.btn-wrap{
+    margin-top:24px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
 }
 
 button{
-padding:10px 18px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-font-size:14px;
-font-weight:bold;
+    border:none;
+    border-radius:12px;
+    padding:12px 22px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:700;
 }
 
 .btn-print{
-background:#16a34a;
-color:white;
+    background:#16a34a;
+    color:#fff;
 }
 
 .btn-back{
-background:#e5e7eb;
+    background:#e5e7eb;
+    color:#000;
 }
+
+/* ================= PRINT ================= */
 
 @media print{
 
-body{
-background:white;
-}
+    html,
+    body{
+        width:58mm;
+        margin:0;
+        padding:0;
+        background:#fff;
+    }
 
-.paper{
-margin:0;
-box-shadow:none;
-}
+    .wrapper{
+        display:block;
+    }
 
-.control-box{
-display:none;
-}
+    .receipt{
+        width:58mm;
+        padding:2.5mm;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+    }
 
+    .doa-card,
+    .btn-wrap{
+        display:none;
+    }
+
+    *{
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
 }
